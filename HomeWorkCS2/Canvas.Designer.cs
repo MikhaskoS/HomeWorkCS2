@@ -1,4 +1,4 @@
-﻿namespace HomeWorkCS2
+﻿namespace MkGame
 {
     partial class Canvas
     {
@@ -28,10 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // Canvas
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Form1";
+            this.ClientSize = new System.Drawing.Size(1008, 601);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Name = "Canvas";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Asteroid";
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Canvas_Paint);
+            this.ResumeLayout(false);
+
         }
 
         #endregion
