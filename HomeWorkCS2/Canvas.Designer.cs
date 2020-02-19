@@ -1,6 +1,6 @@
 ﻿namespace HomeWorkCS2
 {
-    partial class Form1
+    partial class Canvas
     {
         /// <summary>
         /// Обязательная переменная конструктора.

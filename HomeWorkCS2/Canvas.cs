@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace HomeWorkCS2
 {
-    public partial class Form1 : Form
+    public partial class Canvas : Form
     {
-        public Form1()
+        public Canvas()
         {
             InitializeComponent();
         }
