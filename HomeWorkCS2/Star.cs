@@ -14,12 +14,12 @@ namespace MkGame
             // отрисовка зависит от размера звезды
             if (Size.Width < 5) //крестик
             {
-                Game.graphics.DrawLine(Pens.White, Pos.X - Size.Width, Pos.Y, Pos.X + Size.Width, Pos.Y);
-                Game.graphics.DrawLine(Pens.White, Pos.X, Pos.Y - Size.Height, Pos.X, Pos.Y + Size.Height);
+                Canvas.grfx.DrawLine(Pens.White, Pos.X - Size.Width, Pos.Y, Pos.X + Size.Width, Pos.Y);
+                Canvas.grfx.DrawLine(Pens.White, Pos.X, Pos.Y - Size.Height, Pos.X, Pos.Y + Size.Height);
             }
             else // кружочек
             {
-                Game.graphics.DrawEllipse(Pens.White, Pos.X, Pos.Y, Size.Width, Size.Height);
+                Canvas.grfx.DrawEllipse(Pens.White, Pos.X, Pos.Y, Size.Width, Size.Height);
             }
         }
 

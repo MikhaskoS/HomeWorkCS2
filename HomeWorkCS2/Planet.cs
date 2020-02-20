@@ -26,7 +26,7 @@ namespace MkGame
 
         public override void Draw()
         {
-            Game.graphics.DrawImage(background, rect);
+            Canvas.grfx.DrawImage(background, rect);
         }
 
 

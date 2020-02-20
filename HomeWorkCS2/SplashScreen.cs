@@ -1,30 +1,29 @@
 ﻿using System;
-using System.Windows.Forms;
+using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace MkGame
 {
-    static class Game
+    class SplashScreen
     {
+        public static Background background;
 
         public static int Width { get; set; }
         public static int Height { get; set; }
 
         public static BaseObject[] _obj;
-        public static Planet[] _planets;
-        public static Background background;
 
-        static Game()
+        public SplashScreen()
         {
         }
-
         public static void Load()
         {
             Random rnd = new Random();
-
             background = new Background();
-
             _obj = new BaseObject[30];
             for (int i = 0; i < _obj.Length; i++)
             {
@@ -35,14 +34,7 @@ namespace MkGame
                     new Point(0, 0), new Size(sizeStar, sizeStar));
                 _obj[i].Velosity = new Point(-rnd.Next(1, 3), 0);
             }
-
-            _planets = new Planet[] {
-                new Planet( new Point(0, -700), new Point(0,0), new Size(1024, 1024), "Sun.png"),
-                new Planet( new Point(Width, 0), new Point(0,0), new Size(640, 640), "Planet.png") };
-            _planets[0].Velosity = new Point(-1, 0);
-            _planets[1].Velosity = new Point(-2, 0);
         }
-
         public static void Init(int width, int height)
         {
             Width = width;
@@ -50,29 +42,26 @@ namespace MkGame
             Load();
         }
 
-       
-
         // обновление кадра за фиксированное время
         public static void FrameUpdate()
         {
             foreach (BaseObject ob in _obj)
                 ob.FrameUpdate();
-            foreach (Planet pl in _planets)
-                pl.FrameUpdate();
         }
 
         // перерисовка экрана
-        public static void Update(int width, int height)
+        public static void Update( int width, int height)
         {
             Width = width;
             Height = height;
 
             background.Draw(Canvas.grfx);
 
+            Canvas.grfx.DrawString("Asteroid", new Font(FontFamily.GenericSansSerif,
+                60, FontStyle.Underline), Brushes.Violet, -180, -150);
+
             foreach (BaseObject ob in _obj)
                 ob.Update();
-            foreach (Planet pl in _planets)
-                pl.Update();
 
             Application.DoEvents();
         }

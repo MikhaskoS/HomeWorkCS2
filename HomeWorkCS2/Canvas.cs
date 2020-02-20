@@ -23,18 +23,55 @@ namespace MkGame
             InitializeComponent();
 
             Game.Init(this.ClientSize.Width, this.ClientSize.Height);
+            SplashScreen.Init(this.ClientSize.Width, this.ClientSize.Height);
+
+            this.FormClosing += Canvas_FormClosing;
+            _startGame = false;
+
+
+            Timer timer = new Timer { Interval = 60 };
+            timer.Tick += Timer_Tick;
+            timer.Start();
+        }
+
+        private void Canvas_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            _closing = true;
+        }
+
+        private bool _closing = false;
+        private bool _startGame = false;
+        public static Graphics grfx;
+
+        private  void Timer_Tick(object sender, EventArgs e)
+        {
+            if (_startGame)
+                Game.FrameUpdate();
+            else
+                SplashScreen.FrameUpdate();
         }
 
         private void Canvas_Paint(object sender, PaintEventArgs e)
         {
+            if (_closing) return;
+
             // начало координат в центре экрана
-            Graphics grfx = e.Graphics;
+            grfx = e.Graphics;
             grfx.TranslateTransform(this.ClientSize.Width / 2, this.ClientSize.Height / 2);
             grfx.ScaleTransform(1, 1);
 
-            Game.Update(grfx, this.ClientSize.Width, this.ClientSize.Height);
+            if (_startGame)
+                Game.Update(this.ClientSize.Width, this.ClientSize.Height);
+            else
+                SplashScreen.Update(this.ClientSize.Width, this.ClientSize.Height);
 
             this.Invalidate();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            _startGame = true;
+            button1.Hide();
         }
     }
 
