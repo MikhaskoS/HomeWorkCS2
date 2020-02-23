@@ -15,10 +15,8 @@ namespace MkGame
             Rect = new Rectangle(pos.X, pos.Y, size.Width, size.Height);
         }
 
-        public override void Draw()
-        {
+        public override void Draw() => 
             CanvasForm.Grfx.DrawRectangle(Pens.Yellow, _pos.X, _pos.Y, _size.Width, _size.Height);
-        }
 
         public override void FrameUpdate()
         {
@@ -34,9 +32,6 @@ namespace MkGame
             rect.Y = _pos.Y;
         }
 
-        public override void Update()
-        {
-            Draw();
-        }
+        public override void Update() => Draw();
     }
 }

@@ -23,10 +23,7 @@ namespace MkGame
             }
         }
 
-        public override void Update()
-        {
-            Draw();
-        }
+        public override void Update() => Draw();
         public override void FrameUpdate()
         {
             _pos.X += velosity.X ;

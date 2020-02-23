@@ -9,7 +9,7 @@ namespace MkGame
 {
     class Employes : IEnumerable
     {
-        private Employe[] _employes;
+        private readonly Employe[] _employes;
         public int Lenght {get{return _employes.Length;} }
 
         public Employes(Employe[] eArray) 
@@ -33,7 +33,7 @@ namespace MkGame
                 else
                 {
                     throw new IndexOutOfRangeException(
-                       "Attempt to retrieve Vector element" + i);
+                       "Попытка извлечь элемент с индексом " + i) ;
                 }
             }
             set
@@ -45,7 +45,7 @@ namespace MkGame
                 else
                 {
                     throw new IndexOutOfRangeException(
-                   "Attempt to set Vector element" + i);
+                   "Попытка назначить элемент с индексом" + i);
                 }
             }
         }

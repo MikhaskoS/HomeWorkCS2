@@ -84,8 +84,6 @@ namespace MkGame
                     asteroids[i] = null;
                     //asteroids[i].Velosity = new Point(0, 0);
                 }
-                
-                
             }
 
             _bullet?.FrameUpdate();

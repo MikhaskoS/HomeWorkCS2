@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace MkGame
 {
+    // Visual Studio предлагает быстрый способ построения нового класса исключений
+    // нужно набрать Exception и щелкнуть 2 раза Tab. Этот класс выполняет все рекомендации .NET
     [Serializable]
     public class GameException : Exception
     {
