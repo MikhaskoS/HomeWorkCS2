@@ -11,23 +11,31 @@ namespace MkGame
     class Background
     {
         private  Image background;
-        private readonly string directory;
-        RectangleF rect;
+        Rectangle rect;
+        int _xPos;
+        int _yPos;
+        int _width;
+        int _height;
 
-        public Background()
+        public int XPos { get => _xPos; set => _xPos = value; }
+        public int YPos { get => _yPos; set => _yPos = value; }
+        public int Width { get => _width; set => _width = value; }
+        public int Height { get => _height; set => _height = value; }
+
+        public Background(int xPos = -512, int yPos = -612, int width = 850, int height = 850)
         {
-            System.IO.DirectoryInfo df = new System.IO.DirectoryInfo("..\\..\\Images");
-            directory = df.FullName;
-            string filePath = Path.Combine(directory, "PurpleNebula.jpg");
-            
-            background = Image.FromFile(filePath);
-            rect = new RectangleF(-800.0F, -600.0F, 850.0F, 850.0F);
+            XPos = xPos;
+            YPos = yPos;
+            Width = width;
+            Height = height;
+
+            background = Utility.GetImage( "PurpleNebula.jpg");
+            rect = new Rectangle(xPos, yPos, width, height);
         }
 
         public void Draw(Graphics grfx)
         {
-            
-            grfx.DrawImage(background, new Point(-512,-612));
+            grfx.DrawImage(background, new Point(XPos,YPos));
         }
     }
 }

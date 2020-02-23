@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace MkGame
 {
-    public partial class Canvas : Form
+    public partial class CanvasForm : Form
     {
-        public Canvas()
+        public CanvasForm()
         {
             // Здесь устанавливается двойной буффер!
             this.SetStyle(ControlStyles.DoubleBuffer |

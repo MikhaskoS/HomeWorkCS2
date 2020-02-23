@@ -1,6 +1,6 @@
 ﻿namespace MkGame
 {
-    partial class Canvas
+    partial class CanvasForm
     {
         /// <summary>
         /// Обязательная переменная конструктора.

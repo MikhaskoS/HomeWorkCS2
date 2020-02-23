@@ -7,7 +7,6 @@ namespace MkGame
 {
     static class Game
     {
-
         public static int Width { get; set; }
         public static int Height { get; set; }
 
@@ -32,15 +31,15 @@ namespace MkGame
 
                 _obj[i] = new Star(
                     new Point(rnd.Next(-Width / 2, Width / 2), rnd.Next(-Height / 2, Height / 2)),
-                    new Point(0, 0), new Size(sizeStar, sizeStar));
-                _obj[i].Velosity = new Point(-rnd.Next(1, 3), 0);
+                    new Point(0, 0), new Size(sizeStar, sizeStar))
+                { Velosity = new Point(-rnd.Next(1, 3), 0)};
             }
 
             _planets = new Planet[] {
-                new Planet( new Point(0, -700), new Point(0,0), new Size(1024, 1024), "Sun.png"),
-                new Planet( new Point(Width, 0), new Point(0,0), new Size(640, 640), "Planet.png") };
-            _planets[0].Velosity = new Point(-1, 0);
-            _planets[1].Velosity = new Point(-2, 0);
+                new Planet( new Point(0, -700), new Point(0,0), new Size(1024, 1024), "Sun.png")
+                { Velosity = new Point(-1, 0)},
+                new Planet( new Point(Width, 0), new Point(0,0), new Size(640, 640), "Planet.png")
+                { Velosity = new Point(-2, 0)}};
         }
 
         public static void Init(int width, int height)
@@ -49,8 +48,6 @@ namespace MkGame
             Height = height;
             Load();
         }
-
-       
 
         // обновление кадра за фиксированное время
         public static void FrameUpdate()
@@ -67,7 +64,7 @@ namespace MkGame
             Width = width;
             Height = height;
 
-            background.Draw(Canvas.grfx);
+            background.Draw(CanvasForm.grfx);
 
             foreach (BaseObject ob in _obj)
                 ob.Update();

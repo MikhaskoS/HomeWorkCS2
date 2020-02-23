@@ -55,9 +55,9 @@ namespace MkGame
             Width = width;
             Height = height;
 
-            background.Draw(Canvas.grfx);
+            background.Draw(CanvasForm.grfx);
 
-            Canvas.grfx.DrawString("Asteroid", new Font(FontFamily.GenericSansSerif,
+            CanvasForm.grfx.DrawString("Asteroid", new Font(FontFamily.GenericSansSerif,
                 60, FontStyle.Underline), Brushes.Violet, -180, -150);
 
             foreach (BaseObject ob in _obj)

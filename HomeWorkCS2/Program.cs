@@ -16,7 +16,7 @@ namespace MkGame
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Canvas());
+            Application.Run(new CanvasForm());
         }
     }
 }

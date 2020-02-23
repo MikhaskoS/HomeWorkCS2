@@ -12,14 +12,14 @@ namespace MkGame
         public override void Draw()
         {
             // отрисовка зависит от размера звезды
-            if (Size.Width < 5) //крестик
+            if (_size.Width < 5) //крестик
             {
-                Canvas.grfx.DrawLine(Pens.White, Pos.X - Size.Width, Pos.Y, Pos.X + Size.Width, Pos.Y);
-                Canvas.grfx.DrawLine(Pens.White, Pos.X, Pos.Y - Size.Height, Pos.X, Pos.Y + Size.Height);
+                CanvasForm.grfx.DrawLine(Pens.White, _pos.X - _size.Width, _pos.Y, _pos.X + _size.Width, _pos.Y);
+                CanvasForm.grfx.DrawLine(Pens.White, _pos.X, _pos.Y - _size.Height, _pos.X, _pos.Y + _size.Height);
             }
             else // кружочек
             {
-                Canvas.grfx.DrawEllipse(Pens.White, Pos.X, Pos.Y, Size.Width, Size.Height);
+                CanvasForm.grfx.DrawEllipse(Pens.White, _pos.X, _pos.Y, _size.Width, _size.Height);
             }
         }
 
@@ -29,8 +29,8 @@ namespace MkGame
         }
         public override void FrameUpdate()
         {
-            Pos.X = Pos.X + velosity.X ;
-            if (Pos.X < -Game.Width / 2) Pos.X = Game.Width / 2;
+            _pos.X = _pos.X + velosity.X ;
+            if (_pos.X < -Game.Width / 2) _pos.X = Game.Width / 2;
         }
     }
 

@@ -10,29 +10,23 @@ namespace MkGame
 {
     class Planet : BaseObject
     {
-        private Image background;
-        private readonly string directory;
+        private Image _image;
         RectangleF rect;
 
         public Planet(Point pos, Point dir, Size size, string file) : base(pos, dir, size)
         {
-            System.IO.DirectoryInfo df = new System.IO.DirectoryInfo("..\\..\\Images");
-            directory = df.FullName;
-            string filePath = Path.Combine(directory, file);
-
-            background = Image.FromFile(filePath);
+            _image = Utility.GetImage(file);
             rect = new RectangleF(pos.X, pos.Y, size.Width, size.Height);
         }
 
         public override void Draw()
         {
-            Canvas.grfx.DrawImage(background, rect);
+            CanvasForm.grfx.DrawImage(_image, rect);
         }
-
 
         public override void Update()
         {
-            if(rect.X > -(Size.Width + Game.Width / 2) && rect.X < Game.Width / 2)
+            if(rect.X > -(_size.Width + Game.Width / 2) && rect.X < Game.Width / 2)
             Draw();
         }
 
