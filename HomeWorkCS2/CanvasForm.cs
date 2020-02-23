@@ -41,7 +41,8 @@ namespace MkGame
 
         private bool _closing = false;
         private bool _startGame = false;
-        public static Graphics grfx;
+        private static Graphics _grfx;
+        public static Graphics Grfx { get => _grfx;}
 
         private  void Timer_Tick(object sender, EventArgs e)
         {
@@ -56,9 +57,9 @@ namespace MkGame
             if (_closing) return;
 
             // начало координат в центре экрана
-            grfx = e.Graphics;
-            grfx.TranslateTransform(this.ClientSize.Width / 2, this.ClientSize.Height / 2);
-            grfx.ScaleTransform(1, 1);
+            _grfx = e.Graphics;
+            _grfx.TranslateTransform(this.ClientSize.Width / 2, this.ClientSize.Height / 2);
+            _grfx.ScaleTransform(1, 1);
 
             if (_startGame)
                 Game.Update(this.ClientSize.Width, this.ClientSize.Height);

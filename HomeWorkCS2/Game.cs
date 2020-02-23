@@ -64,7 +64,7 @@ namespace MkGame
             Width = width;
             Height = height;
 
-            background.Draw(CanvasForm.grfx);
+            background.Draw(CanvasForm.Grfx);
 
             foreach (BaseObject ob in _obj)
                 ob.Update();

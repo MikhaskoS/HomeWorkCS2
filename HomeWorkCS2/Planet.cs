@@ -21,7 +21,7 @@ namespace MkGame
 
         public override void Draw()
         {
-            CanvasForm.grfx.DrawImage(_image, rect);
+            CanvasForm.Grfx.DrawImage(_image, rect);
         }
 
         public override void Update()
