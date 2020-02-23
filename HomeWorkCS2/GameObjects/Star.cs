@@ -29,7 +29,7 @@ namespace MkGame
         }
         public override void FrameUpdate()
         {
-            _pos.X = _pos.X + velosity.X ;
+            _pos.X += velosity.X ;
             if (_pos.X < -Game.Width / 2) _pos.X = Game.Width / 2;
         }
     }

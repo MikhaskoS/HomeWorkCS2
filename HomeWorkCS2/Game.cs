@@ -10,8 +10,9 @@ namespace MkGame
         public static int Width { get; set; }
         public static int Height { get; set; }
 
-        public static BaseObject[] _obj;
-        public static Planet[] _planets;
+        public static BaseObject[] obj;
+        public static Planet[] planets;
+        public static Asteroid[] asteroids;
         public static Background background;
 
         static Game()
@@ -24,22 +25,33 @@ namespace MkGame
 
             background = new Background();
 
-            _obj = new BaseObject[30];
-            for (int i = 0; i < _obj.Length; i++)
+            obj = new BaseObject[30];
+            for (int i = 0; i < obj.Length; i++)
             {
                 int sizeStar = rnd.Next(1, 6);
 
-                _obj[i] = new Star(
+                obj[i] = new Star(
                     new Point(rnd.Next(-Width / 2, Width / 2), rnd.Next(-Height / 2, Height / 2)),
                     new Point(0, 0), new Size(sizeStar, sizeStar))
                 { Velosity = new Point(-rnd.Next(1, 3), 0)};
             }
 
-            _planets = new Planet[] {
+            planets = new Planet[] {
                 new Planet( new Point(0, -700), new Point(0,0), new Size(1024, 1024), "Sun.png")
                 { Velosity = new Point(-1, 0)},
                 new Planet( new Point(Width, 0), new Point(0,0), new Size(640, 640), "Planet.png")
                 { Velosity = new Point(-2, 0)}};
+
+            asteroids = new Asteroid[10];
+            for (int i = 0; i < asteroids.Length; i++)
+            {
+                int r = rnd.Next(25, 50);
+                asteroids[i] = new Asteroid(
+                    new Point(rnd.Next(512, 1400), rnd.Next(-Height / 2, Height / 2)),
+                  new Point(0, 0), new Size(r, r), "asteroid.png")
+                { Velosity = new Point(-4, 0) };
+            }
+
         }
 
         public static void Init(int width, int height)
@@ -52,10 +64,15 @@ namespace MkGame
         // обновление кадра за фиксированное время
         public static void FrameUpdate()
         {
-            foreach (BaseObject ob in _obj)
+            foreach (BaseObject ob in obj)
                 ob.FrameUpdate();
-            foreach (Planet pl in _planets)
+            foreach (Planet pl in planets)
                 pl.FrameUpdate();
+            for (var i = 0; i < asteroids.Length; i++)
+            {
+                if (asteroids[i] == null) continue;
+                asteroids[i].FrameUpdate();
+            }
         }
 
         // перерисовка экрана
@@ -66,10 +83,15 @@ namespace MkGame
 
             background.Draw(CanvasForm.Grfx);
 
-            foreach (BaseObject ob in _obj)
+            foreach (BaseObject ob in obj)
                 ob.Update();
-            foreach (Planet pl in _planets)
+            foreach (Planet pl in planets)
                 pl.Update();
+            foreach (Asteroid a in asteroids)
+            {
+                if (a == null) continue;
+                a.Update();
+            }
 
             Application.DoEvents();
         }
