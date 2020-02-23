@@ -13,7 +13,9 @@ namespace MkGame
         public static BaseObject[] obj;
         public static Planet[] planets;
         public static Asteroid[] asteroids;
-        public static Background background;
+        public static Background background = new Background();
+
+        public static Bullet _bullet;
 
         static Game()
         {
@@ -22,8 +24,6 @@ namespace MkGame
         public static void Load()
         {
             Random rnd = new Random();
-
-            background = new Background();
 
             obj = new BaseObject[30];
             for (int i = 0; i < obj.Length; i++)
@@ -52,12 +52,17 @@ namespace MkGame
                 { Velosity = new Point(-4, 0) };
             }
 
+            _bullet = new Bullet(new Point(-Width / 2, 0), new Point(0, 0), new Size(10, 2));
         }
 
         public static void Init(int width, int height)
         {
+            if (width <= 0 || height <= 0 || width > 2000 || height > 2000)
+                throw new GameException("Неверные размеры экрана!", new ArgumentOutOfRangeException());
+
             Width = width;
             Height = height;
+            
             Load();
         }
 
@@ -65,14 +70,25 @@ namespace MkGame
         public static void FrameUpdate()
         {
             foreach (BaseObject ob in obj)
-                ob.FrameUpdate();
+                ob?.FrameUpdate();
             foreach (Planet pl in planets)
-                pl.FrameUpdate();
+                pl?.FrameUpdate();
             for (var i = 0; i < asteroids.Length; i++)
             {
                 if (asteroids[i] == null) continue;
                 asteroids[i].FrameUpdate();
+
+                if (asteroids[i].Collision(_bullet)) // произошло столкновение
+                {
+                    //_bullet.Velosity = new Point(0, 0);
+                    asteroids[i] = null;
+                    //asteroids[i].Velosity = new Point(0, 0);
+                }
+                
+                
             }
+
+            _bullet?.FrameUpdate();
         }
 
         // перерисовка экрана
@@ -81,17 +97,18 @@ namespace MkGame
             Width = width;
             Height = height;
 
-            background.Draw(CanvasForm.Grfx);
+            background?.Draw(CanvasForm.Grfx);
 
             foreach (BaseObject ob in obj)
-                ob.Update();
+                ob?.Update();
             foreach (Planet pl in planets)
-                pl.Update();
+                pl?.Update();
             foreach (Asteroid a in asteroids)
             {
-                if (a == null) continue;
-                a.Update();
+                a?.Update();
             }
+
+            _bullet?.Update();
 
             Application.DoEvents();
         }

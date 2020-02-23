@@ -9,14 +9,11 @@ namespace MkGame
 {
     class Bullet : BaseObject
     {
-        private Rectangle _rect;
         public Bullet(Point pos, Point dir, Size size) : base(pos, dir, size)
         {
-            velosity = new Point(6, 0);
-            _rect = new Rectangle(pos.X, pos.Y, size.Width, size.Height);
+            velosity = new Point(10, 0);
+            Rect = new Rectangle(pos.X, pos.Y, size.Width, size.Height);
         }
-
-        public Rectangle Rect { get => _rect; set => _rect = value; }
 
         public override void Draw()
         {
@@ -25,8 +22,16 @@ namespace MkGame
 
         public override void FrameUpdate()
         {
+            if (_pos.X > Game.Width / 2)
+            {
+                Random rnd = new Random();
+                _pos.X = -Game.Width / 2;
+                _pos.Y = rnd.Next(-Game.Height / 2, Game.Height / 2);
+            }
+
             _pos.X += velosity.X;
-            _rect.X = _pos.X;
+            rect.X = _pos.X;
+            rect.Y = _pos.Y;
         }
 
         public override void Update()

@@ -69,7 +69,7 @@ namespace MkGame
             this.Invalidate();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             _startGame = true;
             button1.Hide();

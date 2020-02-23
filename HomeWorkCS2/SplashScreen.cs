@@ -31,8 +31,8 @@ namespace MkGame
 
                 _obj[i] = new Star(
                     new Point(rnd.Next(-Width / 2, Width / 2), rnd.Next(-Height / 2, Height / 2)),
-                    new Point(0, 0), new Size(sizeStar, sizeStar));
-                _obj[i].Velosity = new Point(-rnd.Next(1, 3), 0);
+                    new Point(0, 0), new Size(sizeStar, sizeStar))
+                { Velosity = new Point(-rnd.Next(1, 3), 0)};
             }
         }
         public static void Init(int width, int height)
@@ -46,7 +46,7 @@ namespace MkGame
         public static void FrameUpdate()
         {
             foreach (BaseObject ob in _obj)
-                ob.FrameUpdate();
+                ob?.FrameUpdate();
         }
 
         // перерисовка экрана
@@ -55,13 +55,13 @@ namespace MkGame
             Width = width;
             Height = height;
 
-            background.Draw(CanvasForm.Grfx);
+            background?.Draw(CanvasForm.Grfx);
 
             CanvasForm.Grfx.DrawString("Asteroid", new Font(FontFamily.GenericSansSerif,
                 60, FontStyle.Underline), Brushes.Violet, -180, -150);
 
             foreach (BaseObject ob in _obj)
-                ob.Update();
+                ob?.Update();
 
             Application.DoEvents();
         }

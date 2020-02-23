@@ -10,11 +10,9 @@ namespace MkGame
     abstract class BaseObjectImg : BaseObject
     {
         protected Image image;
-        protected Rectangle rect;
 
         public Image Image { get => image; set => image = value; }
-        public Rectangle Rect { get => rect; set => rect = value; }
-
+       
         public BaseObjectImg(Point pos, Point dir, Size size) : base(pos, dir, size)
         {
         }
@@ -22,7 +20,6 @@ namespace MkGame
         public BaseObjectImg(Point pos, Point dir, Size size, string file) : base(pos, dir, size)
         {
             image = Utility.GetImage(file);
-            rect = new Rectangle(pos.X, pos.Y, size.Width, size.Height);
         }
     }
 }
