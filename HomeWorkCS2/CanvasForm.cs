@@ -44,6 +44,8 @@ namespace MkGame
         private static Graphics _grfx;
         public static Graphics Grfx { get => _grfx;}
 
+
+        // Контролируемая частота будет использованая для математических расчетов
         private  void Timer_Tick(object sender, EventArgs e)
         {
             if (_startGame)
@@ -52,6 +54,8 @@ namespace MkGame
                 SplashScreen.FrameUpdate();
         }
 
+        // Paint выполняет перерисовку экрана с непредсказуемой частотой 
+        // Здесь размещена пассивная перерисовка, делающая движение плавным
         private void Canvas_Paint(object sender, PaintEventArgs e)
         {
             if (_closing) return;
@@ -66,6 +70,8 @@ namespace MkGame
             else
                 SplashScreen.Update(this.ClientSize.Width, this.ClientSize.Height);
 
+            // без этого мы не получим Timer_Tick
+            if(button1 != null) Application.DoEvents();
             this.Invalidate();
         }
 

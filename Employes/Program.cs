@@ -8,14 +8,15 @@ namespace MkGame
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            List<Employe> empl = new List<Employe>();
-            empl.Add(new TimeWorker { Name = "Вася", SalaryForTime = 5, WorkTime = 15 });
-            empl.Add(new TimeWorker { Name = "Прохор", SalaryForTime = 8, WorkTime = 20 });
-            empl.Add(new PermanentWorker { Name = "Паштет", SalaryMonth = 300 });
-            empl.Add(new PermanentWorker { Name = "Витек", SalaryMonth = 400 });
-            empl.Add(new PermanentWorker { Name = "Ржавый", SalaryMonth = 800 });
+            List<Employe> empl = new List<Employe>() {
+                new TimeWorker { Name = "Вася", SalaryForTime = 5, WorkTime = 15 },
+                new TimeWorker { Name = "Прохор", SalaryForTime = 8, WorkTime = 20 },
+                new PermanentWorker { Name = "Паштет", SalaryMonth = 300 },
+                new PermanentWorker { Name = "Витек", SalaryMonth = 400 },
+                new PermanentWorker { Name = "Ржавый", SalaryMonth = 800 },
+            };
 
             empl.Sort();
 

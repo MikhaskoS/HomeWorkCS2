@@ -47,7 +47,7 @@ namespace MkGame
             {
                 int r = rnd.Next(25, 50);
                 asteroids[i] = new Asteroid(
-                    new Point(rnd.Next(512, 1400), rnd.Next(-Height / 2, Height / 2)),
+                    new Point(rnd.Next(256, 1400), rnd.Next(-Height / 2, Height / 2)),
                   new Point(0, 0), new Size(r, r), "asteroid.png")
                 { Velosity = new Point(-4, 0) };
             }
@@ -80,9 +80,7 @@ namespace MkGame
 
                 if (asteroids[i].Collision(_bullet)) // произошло столкновение
                 {
-                    //_bullet.Velosity = new Point(0, 0);
                     asteroids[i] = null;
-                    //asteroids[i].Velosity = new Point(0, 0);
                 }
             }
 
@@ -107,8 +105,6 @@ namespace MkGame
             }
 
             _bullet?.Update();
-
-            Application.DoEvents();
         }
     }
 }
