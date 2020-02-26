@@ -13,31 +13,30 @@ namespace MkGame
         public  int CompareTo(Employe other)
         {
             if (other == null) return 1;
-            return (Salary().CompareTo(other.Salary()));
+            return (Salary.CompareTo(other.Salary));
         }
-        public abstract float Salary();
+        public abstract decimal Salary { get; }
+        public override string ToString()
+        {
+            return Name + $": {Salary}";
+        }
     }
     class TimeWorker : Employe
     {
-        private float salaryForTime = 5; // почасовая оплата
-        private float workTime = 8; // часов отработано
+        private decimal salaryForTime = 5; // почасовая оплата
+        private double workTime = 8; // часов отработано
 
-        public float SalaryForTime { get => salaryForTime; set => salaryForTime = value; }
-        public float WorkTime { get => workTime; set => workTime = value; }
+        public decimal SalaryForTime { get => salaryForTime; set => salaryForTime = value; }
+        public double WorkTime { get => workTime; set => workTime = value; }
 
-        public override float Salary()
-        {
-            return 20.8f * workTime * salaryForTime;
-        }
+        public override decimal Salary => (decimal)(20.8 * workTime) * salaryForTime;
+
     }
     class PermanentWorker : Employe
     {
-        private float salaryMonth = 1000; // фикс месячная зарплата
-        public float SalaryMonth { get => salaryMonth; set => salaryMonth = value; }
+        private decimal salaryMonth = 1000; // фикс месячная зарплата
+        public decimal SalaryMonth { get => salaryMonth; set => salaryMonth = value; }
 
-        public override float Salary()
-        {
-            return SalaryMonth;
-        }
+        public override decimal Salary => SalaryMonth;
     }
 }

@@ -22,7 +22,7 @@ namespace MkGame
 
             foreach (Employe w in empl)
             {
-                Console.WriteLine(w.Name + $": {w.Salary()}");
+                Console.WriteLine(w.Name + $": {w.Salary}");
             }
 
             //--------------------------------
@@ -39,11 +39,11 @@ namespace MkGame
             Employes employes = new Employes(em);
 
             foreach (Employe _e in employes)
-                Console.WriteLine(_e.Name + $": {_e.Salary()}");
+                Console.WriteLine(_e.ToString());
 
             // после реализации ндексатора можно и так
             for (int i = 0; i < employes.Lenght; i++)
-                Console.WriteLine(employes[i].Name + $": {employes[i].Salary()}");
+                Console.WriteLine(employes[i].ToString());
 
 
             Console.Read();

@@ -15,7 +15,7 @@ namespace MkGame
         public static int Width { get; set; }
         public static int Height { get; set; }
 
-        public static BaseObject[] _obj;
+        public static BaseObject[] gameObjects;
 
         public SplashScreen()
         {
@@ -24,12 +24,12 @@ namespace MkGame
         {
             Random rnd = new Random();
             background = new Background();
-            _obj = new BaseObject[30];
-            for (int i = 0; i < _obj.Length; i++)
+            gameObjects = new BaseObject[30];
+            for (int i = 0; i < gameObjects.Length; i++)
             {
                 int sizeStar = rnd.Next(1, 6);
 
-                _obj[i] = new Star(
+                gameObjects[i] = new Star(
                     new Point(rnd.Next(-Width / 2, Width / 2), rnd.Next(-Height / 2, Height / 2)),
                     new Point(0, 0), new Size(sizeStar, sizeStar))
                 { Velosity = new Point(-rnd.Next(1, 3), 0)};
@@ -47,7 +47,7 @@ namespace MkGame
         {
             Console.WriteLine("--");
 
-            foreach (BaseObject ob in _obj)
+            foreach (BaseObject ob in gameObjects)
                 ob?.FrameUpdate();
         }
 
@@ -62,7 +62,7 @@ namespace MkGame
             CanvasForm.Grfx.DrawString("Asteroid", new Font(FontFamily.GenericSansSerif,
                 60, FontStyle.Underline), Brushes.Violet, -180, -150);
 
-            foreach (BaseObject ob in _obj)
+            foreach (BaseObject ob in gameObjects)
                 ob?.Update();
         }
     }

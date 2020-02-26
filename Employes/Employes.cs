@@ -26,27 +26,15 @@ namespace MkGame
         {
             get
             {
-                if (i >= 0 && i < _employes.Length)
-                {
-                    return _employes[i];
-                }
-                else
-                {
-                    throw new IndexOutOfRangeException(
-                       "Попытка извлечь элемент с индексом " + i) ;
-                }
+                if (i < 0 || i >= _employes.Length)
+                    throw new ArgumentOutOfRangeException(nameof(i));
+                return _employes[i];
             }
             set
             {
-                if (i >= 0 && i < _employes.Length)
-                {
-                    _employes[i] = value;
-                }
-                else
-                {
-                    throw new IndexOutOfRangeException(
-                   "Попытка назначить элемент с индексом" + i);
-                }
+                if (i < 0 || i >= _employes.Length)
+                    throw new ArgumentOutOfRangeException(nameof(i));
+                _employes[i] = value;
             }
         }
 
