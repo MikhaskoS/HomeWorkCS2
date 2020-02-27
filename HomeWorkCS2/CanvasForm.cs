@@ -45,6 +45,7 @@ namespace MkGame
         private void Canvas_FormClosing(object sender, FormClosingEventArgs e)
         {
             _closing = true;
+            Game.logger.Dispose();
         }
 
         // Контролируемая частота будет использованая для математических расчетов
@@ -75,6 +76,7 @@ namespace MkGame
             // без этого мы не получим Timer_Tick
             if (buttonStart != null)
                 Application.DoEvents();
+            
             this.Invalidate();
         }
 
@@ -91,7 +93,6 @@ namespace MkGame
             if (Game.GameEnd) return;
             Game.KeyDown(sender, e);
         }
-
     }
 
 }

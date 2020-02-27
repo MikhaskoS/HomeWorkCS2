@@ -20,12 +20,20 @@ namespace MkGame
 
         public static Bullet _bullet;
 
+        public static GameLogger logger;
+
         static bool _gameEnd = false;
         public static bool GameEnd { get => _gameEnd; }
 
+        #region Events
+        public static event Action InitGameEvent;
+        public static event Action LoadGameEvent;
+        public static event Action<KeyEventArgs> KeyDownEvent;
+        #endregion
+
         static Game()
         {
-            
+           
         }
 
         public static void Load()
@@ -59,11 +67,13 @@ namespace MkGame
                 { Velosity = new Point(-4, 0) };
             }
 
-            //_bullet = new Bullet(new Point(-Width / 2, 0), new Point(0, 0), new Size(10, 2));
+            LoadGameEvent?.Invoke();
         }
 
         public static void Init(int width, int height)
         {
+            logger = new GameLogger();
+
             if (width <= 0 || height <= 0 || width > 2000 || height > 2000)
                 throw new GameException("Неверные размеры экрана!", new ArgumentOutOfRangeException());
 
@@ -73,6 +83,8 @@ namespace MkGame
             Load();
 
             Ship.DieEvent += GameOver;
+
+            InitGameEvent?.Invoke();
         }
 
         // обновление кадра за фиксированное время
@@ -125,6 +137,8 @@ namespace MkGame
                     _ship?.Down();
                     break;
             }
+
+            KeyDownEvent?.Invoke(e);
         }
 
         // перерисовка экрана
