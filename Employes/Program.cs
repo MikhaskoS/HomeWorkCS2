@@ -22,7 +22,7 @@ namespace MkGame
 
             foreach (Employe w in empl)
             {
-                Console.WriteLine(w.Name + $": {w.Salary}");
+                Console.WriteLine(w.ToString());
             }
 
             //--------------------------------

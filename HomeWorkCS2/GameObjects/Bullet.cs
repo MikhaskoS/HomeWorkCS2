@@ -11,7 +11,7 @@ namespace MkGame
     {
         public Bullet(Point pos, Point dir, Size size) : base(pos, dir, size)
         {
-            velosity = new Point(10, 0);
+            velosity = new Point(30, 0);
             Rect = new Rectangle(pos.X, pos.Y, size.Width, size.Height);
         }
 
@@ -20,13 +20,6 @@ namespace MkGame
 
         public override void FrameUpdate()
         {
-            if (_pos.X > Game.Width / 2)
-            {
-                Random rnd = new Random();
-                _pos.X = -Game.Width / 2;
-                _pos.Y = rnd.Next(-Game.Height / 2, Game.Height / 2);
-            }
-
             _pos.X += velosity.X;
             rect.X = _pos.X;
             rect.Y = _pos.Y;

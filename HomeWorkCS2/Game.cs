@@ -15,10 +15,17 @@ namespace MkGame
         public static Asteroid[] asteroids;
         public static Background background = new Background();
 
+        private static Ship _ship = new Ship(new Point(-400, 0),
+            new Point(5, 5), new Size(80, 60), "Ship.png");
+
         public static Bullet _bullet;
+
+        static bool _gameEnd = false;
+        public static bool GameEnd { get => _gameEnd; }
 
         static Game()
         {
+            
         }
 
         public static void Load()
@@ -52,7 +59,7 @@ namespace MkGame
                 { Velosity = new Point(-4, 0) };
             }
 
-            _bullet = new Bullet(new Point(-Width / 2, 0), new Point(0, 0), new Size(10, 2));
+            //_bullet = new Bullet(new Point(-Width / 2, 0), new Point(0, 0), new Size(10, 2));
         }
 
         public static void Init(int width, int height)
@@ -64,6 +71,8 @@ namespace MkGame
             Height = height;
             
             Load();
+
+            Ship.DieEvent += GameOver;
         }
 
         // обновление кадра за фиксированное время
@@ -78,13 +87,44 @@ namespace MkGame
                 if (asteroids[i] == null) continue;
                 asteroids[i].FrameUpdate();
 
-                if (asteroids[i].Collision(_bullet)) // произошло столкновение
+                if (_bullet !=null && asteroids[i].Collision(_bullet)) // произошло столкновение
                 {
+                    System.Media.SystemSounds.Hand.Play();
                     asteroids[i] = null;
+                    _bullet = null;
+                    _ship?.ChangeScore(50);
+                    continue;
+                }
+
+                if (_ship != null)
+                {
+                    // столкновение корабля с астероидом
+                    if (!_ship.Collision(asteroids[i])) continue;
+                    var rnd = new Random();
+                    _ship?.EnergyLow(rnd.Next(1, 10));
+                    System.Media.SystemSounds.Asterisk.Play();
+                    if (_ship.Energy <= 0) _ship?.Die();
                 }
             }
 
             _bullet?.FrameUpdate();
+        }
+
+        internal static void KeyDown(object sender, KeyEventArgs e)
+        {
+            switch(e.KeyCode)
+            {
+                case Keys.Space:
+                        _bullet = new Bullet(new Point(_ship.Rect.X + 80, _ship.Rect.Y + 30), 
+                            new Point(0, 0), new Size(20, 2));
+                    break;
+                case Keys.W:
+                    _ship?.Up();
+                    break;
+                case Keys.S:
+                    _ship?.Down();
+                    break;
+            }
         }
 
         // перерисовка экрана
@@ -105,6 +145,26 @@ namespace MkGame
             }
 
             _bullet?.Update();
+            _ship?.Update();
+
+            if (_ship != null)
+            {
+                CanvasForm.Grfx.DrawString("Energy: " + _ship.Energy,
+                SystemFonts.DefaultFont, Brushes.White, -Width / 2 + 10, -Height / 2 + 20);
+                CanvasForm.Grfx.DrawString(" Score: " + _ship.Score,
+                SystemFonts.DefaultFont, Brushes.White, -Width / 2 + 10, -Height / 2 + 50);
+            }
+            else
+                CanvasForm.Grfx.DrawString("The End", new Font(FontFamily.GenericSansSerif,
+                    60, FontStyle.Underline), Brushes.White, -180, 0);
+        }
+
+        private static void GameOver()
+        {
+            CanvasForm.timer.Stop();
+
+            _ship = null;
+            _gameEnd = true;
         }
     }
 }

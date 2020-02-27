@@ -45,8 +45,6 @@ namespace MkGame
         // обновление кадра за фиксированное время
         public static void FrameUpdate()
         {
-            Console.WriteLine("--");
-
             foreach (BaseObject ob in gameObjects)
                 ob?.FrameUpdate();
         }

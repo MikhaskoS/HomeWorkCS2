@@ -12,6 +12,13 @@ namespace MkGame
 {
     public partial class CanvasForm : Form
     {
+        public static Timer timer;
+
+        private bool _closing = false;
+        private bool _startGame = false;
+        private static Graphics _grfx;
+        public static Graphics Grfx { get => _grfx; }
+
         public CanvasForm()
         {
             // Здесь устанавливается двойной буффер!
@@ -26,10 +33,11 @@ namespace MkGame
             SplashScreen.Init(this.ClientSize.Width, this.ClientSize.Height);
 
             this.FormClosing += Canvas_FormClosing;
+            this.KeyDown += CanvasForm_KeyDown;
             _startGame = false;
 
 
-            Timer timer = new Timer { Interval = 60 };
+            timer = new Timer { Interval = 60 };
             timer.Tick += Timer_Tick;
             timer.Start();
         }
@@ -38,12 +46,6 @@ namespace MkGame
         {
             _closing = true;
         }
-
-        private bool _closing = false;
-        private bool _startGame = false;
-        private static Graphics _grfx;
-        public static Graphics Grfx { get => _grfx;}
-
 
         // Контролируемая частота будет использованая для математических расчетов
         private  void Timer_Tick(object sender, EventArgs e)
@@ -68,18 +70,28 @@ namespace MkGame
             if (_startGame)
                 Game.Update(this.ClientSize.Width, this.ClientSize.Height);
             else
-                SplashScreen.Update(this.ClientSize.Width, this.ClientSize.Height);
+             SplashScreen.Update(this.ClientSize.Width, this.ClientSize.Height);
 
             // без этого мы не получим Timer_Tick
-            if(button1 != null) Application.DoEvents();
+            if (buttonStart != null)
+                Application.DoEvents();
             this.Invalidate();
         }
 
         private void Button1_Click(object sender, EventArgs e)
         {
             _startGame = true;
-            button1.Hide();
+            buttonStart.Hide();
+            // фокусируемся на форме для перехвата сообщений
+            this.Focus();
         }
+
+        private void CanvasForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (Game.GameEnd) return;
+            Game.KeyDown(sender, e);
+        }
+
     }
 
 }
