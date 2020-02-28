@@ -44,8 +44,8 @@ namespace MkGame
 
         private void Canvas_FormClosing(object sender, FormClosingEventArgs e)
         {
-            _closing = true;
-            Game.logger.Dispose();
+            
+            Game.logger.Close();
         }
 
         // Контролируемая частота будет использованая для математических расчетов
@@ -61,6 +61,7 @@ namespace MkGame
         // Здесь размещена пассивная перерисовка, делающая движение плавным
         private void Canvas_Paint(object sender, PaintEventArgs e)
         {
+            if (this.IsDisposed) return;
             if (_closing) return;
 
             // начало координат в центре экрана
@@ -73,23 +74,16 @@ namespace MkGame
             else
              SplashScreen.Update(this.ClientSize.Width, this.ClientSize.Height);
 
-            // без этого мы не получим Timer_Tick
-            if (buttonStart != null)
-                Application.DoEvents();
-            
+
+            Application.DoEvents();
             this.Invalidate();
         }
 
-        private void Button1_Click(object sender, EventArgs e)
-        {
-            _startGame = true;
-            buttonStart.Hide();
-            // фокусируемся на форме для перехвата сообщений
-            this.Focus();
-        }
 
         private void CanvasForm_KeyDown(object sender, KeyEventArgs e)
         {
+            if (!_startGame) _startGame = true;
+
             if (Game.GameEnd) return;
             Game.KeyDown(sender, e);
         }

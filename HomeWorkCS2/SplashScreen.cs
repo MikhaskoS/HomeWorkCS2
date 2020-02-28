@@ -16,6 +16,9 @@ namespace MkGame
         public static int Height { get; set; }
 
         public static BaseObject[] gameObjects;
+        private static double _timer = 0;
+        private static double _timeFlicker = 5;
+        private static bool _view = true;
 
         public SplashScreen()
         {
@@ -47,6 +50,14 @@ namespace MkGame
         {
             foreach (BaseObject ob in gameObjects)
                 ob?.FrameUpdate();
+
+            _timer++;
+            if (_timer < _timeFlicker)
+                _view = false;
+            else if (_timer < 2 * _timeFlicker)
+                _view = true;
+            else
+                _timer = 0;
         }
 
         // перерисовка экрана
@@ -59,6 +70,14 @@ namespace MkGame
 
             CanvasForm.Grfx.DrawString("Asteroid", new Font(FontFamily.GenericSansSerif,
                 60, FontStyle.Underline), Brushes.Violet, -180, -150);
+            CanvasForm.Grfx.DrawString("W/S - движение корабля", new Font(FontFamily.GenericSansSerif,
+                15, FontStyle.Italic), Brushes.Violet, -180, 30);
+            CanvasForm.Grfx.DrawString("Space - выстрел", new Font(FontFamily.GenericSansSerif,
+             15, FontStyle.Italic), Brushes.Violet, -180, 60);
+
+            if(_view)
+                CanvasForm.Grfx.DrawString("Press any key...", new Font(FontFamily.GenericSansSerif,
+                    15, FontStyle.Italic), Brushes.Yellow, -120, 250);
 
             foreach (BaseObject ob in gameObjects)
                 ob?.Update();

@@ -28,6 +28,7 @@ namespace MkGame
         #region Events
         public static event Action InitGameEvent;
         public static event Action LoadGameEvent;
+        public static event Action EndGameEvent;
         public static event Action<KeyEventArgs> KeyDownEvent;
         #endregion
 
@@ -50,7 +51,6 @@ namespace MkGame
                     new Point(0, 0), new Size(sizeStar, sizeStar))
                 { Velosity = new Point(-rnd.Next(1, 3), 0)};
             }
-
             planets = new Planet[] {
                 new Planet( new Point(0, -700), new Point(0,0), new Size(1024, 1024), "Sun.png")
                 { Velosity = new Point(-1, 0)},
@@ -62,11 +62,10 @@ namespace MkGame
             {
                 int r = rnd.Next(25, 50);
                 asteroids[i] = new Asteroid(
-                    new Point(rnd.Next(256, 1400), rnd.Next(-Height / 2, Height / 2)),
+                    new Point(rnd.Next(256, 1400), rnd.Next(-Height / 2 + 50, Height / 2 -50 )),
                   new Point(0, 0), new Size(r, r), "asteroid.png")
                 { Velosity = new Point(-4, 0) };
             }
-
             LoadGameEvent?.Invoke();
         }
 
@@ -115,10 +114,13 @@ namespace MkGame
                     var rnd = new Random();
                     _ship?.EnergyLow(rnd.Next(1, 10));
                     System.Media.SystemSounds.Asterisk.Play();
-                    if (_ship.Energy <= 0) _ship?.Die();
+                    if (_ship.Energy <= 0)
+                    {
+                        _ship?.Die();
+                        logger.LogInformation("Корабль уничтожен!");
+                    }
                 }
             }
-
             _bullet?.FrameUpdate();
         }
 
@@ -164,9 +166,11 @@ namespace MkGame
             if (_ship != null)
             {
                 CanvasForm.Grfx.DrawString("Energy: " + _ship.Energy,
-                SystemFonts.DefaultFont, Brushes.White, -Width / 2 + 10, -Height / 2 + 20);
+                new Font(FontFamily.GenericSansSerif,
+                15, FontStyle.Italic), Brushes.White, -Width / 2 + 10, -Height / 2 + 20);
                 CanvasForm.Grfx.DrawString(" Score: " + _ship.Score,
-                SystemFonts.DefaultFont, Brushes.White, -Width / 2 + 10, -Height / 2 + 50);
+                new Font(FontFamily.GenericSansSerif,
+                15, FontStyle.Italic), Brushes.White, -Width / 2 + 10, -Height / 2 + 50);
             }
             else
                 CanvasForm.Grfx.DrawString("The End", new Font(FontFamily.GenericSansSerif,
@@ -176,9 +180,9 @@ namespace MkGame
         private static void GameOver()
         {
             CanvasForm.timer.Stop();
-
             _ship = null;
             _gameEnd = true;
+            EndGameEvent?.Invoke();
         }
     }
 }

@@ -22,12 +22,21 @@ namespace MkGame
         {
             StreamWriter myOutputWriter = new StreamWriter("tracelogger.log", false);
             _myTextListener = new TextWriterTraceListener(myOutputWriter);
+            
 
             Trace.Listeners.Add(_myTextListener);
+            // рекомендуется, чтобы не терять информацию в случае критических ошибок
+            Trace.AutoFlush = true;  
 
             Game.InitGameEvent += Game_InitGameEvent;
             Game.LoadGameEvent += Game_LoadGameEvent;
             Game.KeyDownEvent += Game_KeyDownEvent;
+            Game.EndGameEvent += Game_EndGameEvent;
+        }
+
+        private void Game_EndGameEvent()
+        {
+            this.LogInformation($"{DateTime.Now} : Игра окончена.");
         }
 
         private void Game_KeyDownEvent(KeyEventArgs obj)
@@ -45,10 +54,10 @@ namespace MkGame
             this.LogInformation("Загрузка игры");
         }
 
+       
         [Conditional("LOGGINGMODE")]
-        public void Dispose()
+        public void Close() 
         {
-            _myTextListener.Flush();
             _myTextListener.Close();
         }
     }
