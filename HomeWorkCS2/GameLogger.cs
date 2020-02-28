@@ -31,7 +31,7 @@ namespace MkGame
             Game.InitGameEvent += Game_InitGameEvent;
             Game.LoadGameEvent += Game_LoadGameEvent;
             Game.KeyDownEvent += Game_KeyDownEvent;
-            Game.EndGameEvent += Game_EndGameEvent;
+            Game.GameOverEvent += Game_EndGameEvent;
         }
 
         private void Game_EndGameEvent()

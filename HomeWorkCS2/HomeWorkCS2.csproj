@@ -63,6 +63,7 @@
     <Compile Include="Game.cs" />
     <Compile Include="GameObjects\BaseObjectImg.cs" />
     <Compile Include="GameObjects\Bullet.cs" />
+    <Compile Include="GameObjects\Energy.cs" />
     <Compile Include="GameObjects\Planet.cs" />
     <Compile Include="GameObjects\Ship.cs" />
     <Compile Include="Logger\DebugLogger.cs" />
@@ -104,6 +105,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\Asteroid.png" />
+    <Content Include="Images\Energy.png" />
     <Content Include="Images\Planet.png" />
     <Content Include="Images\PurpleNebula.jpg" />
     <Content Include="Images\Ship.png" />

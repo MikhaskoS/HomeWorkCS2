@@ -34,8 +34,6 @@ namespace MkGame
 
         public override void Update()
         {
-            //if (rect.X <= -(_size.Width + Game.Width / 2) || rect.X >= Game.Width / 2)
-            //    return;
             Draw();
         }
 

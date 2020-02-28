@@ -84,7 +84,7 @@ namespace MkGame
         {
             if (!_startGame) _startGame = true;
 
-            if (Game.GameEnd) return;
+            if (Game.GameFail) return;
             Game.KeyDown(sender, e);
         }
     }

@@ -19,16 +19,17 @@ namespace MkGame
             new Point(5, 5), new Size(80, 60), "Ship.png");
 
         public static Bullet _bullet;
+        public static Energy _energy;
 
         public static GameLogger logger;
 
-        static bool _gameEnd = false;
-        public static bool GameEnd { get => _gameEnd; }
+        static bool _gameFail = false;
+        public static bool GameFail { get => _gameFail; }
 
         #region Events
         public static event Action InitGameEvent;
         public static event Action LoadGameEvent;
-        public static event Action EndGameEvent;
+        public static event Action GameOverEvent;
         public static event Action<KeyEventArgs> KeyDownEvent;
         #endregion
 
@@ -66,6 +67,11 @@ namespace MkGame
                   new Point(0, 0), new Size(r, r), "asteroid.png")
                 { Velosity = new Point(-4, 0) };
             }
+            _energy = new Energy(
+                    new Point(rnd.Next(0, Width/4), rnd.Next(-Height / 4 , Height / 4 )),
+                  new Point(0, 0), new Size(20, 40), "Energy.png")
+            { Velosity = new Point(-4, 0) };
+
             LoadGameEvent?.Invoke();
         }
 
@@ -98,7 +104,7 @@ namespace MkGame
                 if (asteroids[i] == null) continue;
                 asteroids[i].FrameUpdate();
 
-                if (_bullet !=null && asteroids[i].Collision(_bullet)) // произошло столкновение
+                if (_bullet != null && asteroids[i].Collision(_bullet)) // произошло столкновение
                 {
                     System.Media.SystemSounds.Hand.Play();
                     asteroids[i] = null;
@@ -113,6 +119,7 @@ namespace MkGame
                     if (!_ship.Collision(asteroids[i])) continue;
                     var rnd = new Random();
                     _ship?.EnergyLow(rnd.Next(1, 10));
+
                     System.Media.SystemSounds.Asterisk.Play();
                     if (_ship.Energy <= 0)
                     {
@@ -121,7 +128,17 @@ namespace MkGame
                     }
                 }
             }
+            if (_energy != null)
+            {
+                if (_ship.Collision(_energy))
+                {
+                    _ship?.EnergyLow(-50);
+                    _energy = null;
+                }
+            }
+
             _bullet?.FrameUpdate();
+            _energy?.FrameUpdate();
         }
 
         internal static void KeyDown(object sender, KeyEventArgs e)
@@ -162,6 +179,7 @@ namespace MkGame
 
             _bullet?.Update();
             _ship?.Update();
+            _energy?.Update();
 
             if (_ship != null)
             {
@@ -174,15 +192,15 @@ namespace MkGame
             }
             else
                 CanvasForm.Grfx.DrawString("The End", new Font(FontFamily.GenericSansSerif,
-                    60, FontStyle.Underline), Brushes.White, -180, 0);
+                    60, FontStyle.Underline), Brushes.White, -180, -50);
         }
 
         private static void GameOver()
         {
             CanvasForm.timer.Stop();
             _ship = null;
-            _gameEnd = true;
-            EndGameEvent?.Invoke();
+            _gameFail = true;
+            GameOverEvent?.Invoke();
         }
     }
 }

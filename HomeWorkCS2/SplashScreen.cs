@@ -16,8 +16,7 @@ namespace MkGame
         public static int Height { get; set; }
 
         public static BaseObject[] gameObjects;
-        private static double _timer = 0;
-        private static double _timeFlicker = 5;
+        private static int _timer = 0;
         private static bool _view = true;
 
         public SplashScreen()
@@ -51,13 +50,7 @@ namespace MkGame
             foreach (BaseObject ob in gameObjects)
                 ob?.FrameUpdate();
 
-            _timer++;
-            if (_timer < _timeFlicker)
-                _view = false;
-            else if (_timer < 2 * _timeFlicker)
-                _view = true;
-            else
-                _timer = 0;
+            _view = Utility.Flicker(5, 5, ref _timer);
         }
 
         // перерисовка экрана

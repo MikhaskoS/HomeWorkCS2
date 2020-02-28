@@ -20,5 +20,19 @@ namespace MkGame
 
             return Image.FromFile(filePath);
         }
+
+        public static bool Flicker(int f1, int f2, ref int timer)
+        {
+            timer++;
+            if (timer < f1)
+                return false;
+            else if (timer < 2 * f2)
+                return true;
+            else
+                timer = 0;
+
+            return false;
+        }
+        
     }
 }
