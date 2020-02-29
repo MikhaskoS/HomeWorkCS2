@@ -14,7 +14,7 @@ namespace MkGame
     {
         public static Timer timer;
 
-        private bool _closing = false;
+        private readonly bool _closing = false;
         private bool _startGame = false;
         private static Graphics _grfx;
         public static Graphics Grfx { get => _grfx; }
@@ -32,8 +32,8 @@ namespace MkGame
             Game.Init(this.ClientSize.Width, this.ClientSize.Height);
             SplashScreen.Init(this.ClientSize.Width, this.ClientSize.Height);
 
-            this.FormClosing += Canvas_FormClosing;
             this.KeyDown += CanvasForm_KeyDown;
+            this.Disposed += CanvasForm_Disposed;
             _startGame = false;
 
 
@@ -42,9 +42,8 @@ namespace MkGame
             timer.Start();
         }
 
-        private void Canvas_FormClosing(object sender, FormClosingEventArgs e)
+        private void CanvasForm_Disposed(object sender, EventArgs e)
         {
-            
             Game.logger.Close();
         }
 
@@ -86,7 +85,7 @@ namespace MkGame
 
             if (Game.GameFail) return;
             Game.KeyDown(sender, e);
-        }
+        }        
     }
 
 }

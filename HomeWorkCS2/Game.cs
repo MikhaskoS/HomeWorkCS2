@@ -19,7 +19,7 @@ namespace MkGame
             new Point(5, 5), new Size(80, 60), "Ship.png");
 
         public static Bullet _bullet;
-        public static Energy _energy;
+        public static EnergyBox _energyBox;
 
         public static GameLogger logger;
 
@@ -27,10 +27,10 @@ namespace MkGame
         public static bool GameFail { get => _gameFail; }
 
         #region Events
-        public static event Action InitGameEvent;
-        public static event Action LoadGameEvent;
-        public static event Action GameOverEvent;
-        public static event Action<KeyEventArgs> KeyDownEvent;
+        public static event EventHandler  InitGameEvent;
+        public static event EventHandler LoadGameEvent;
+        public static event EventHandler GameOverEvent;
+        public static event EventHandler KeyDownEvent;
         #endregion
 
         static Game()
@@ -67,12 +67,14 @@ namespace MkGame
                   new Point(0, 0), new Size(r, r), "asteroid.png")
                 { Velosity = new Point(-4, 0) };
             }
-            _energy = new Energy(
+            _energyBox = new EnergyBox(
                     new Point(rnd.Next(0, Width/4), rnd.Next(-Height / 4 , Height / 4 )),
                   new Point(0, 0), new Size(20, 40), "Energy.png")
             { Velosity = new Point(-4, 0) };
 
-            LoadGameEvent?.Invoke();
+            logger.LogInformation("Загрузка игры");
+            
+            LoadGameEvent?.Invoke(null, EventArgs.Empty);
         }
 
         public static void Init(int width, int height)
@@ -89,7 +91,8 @@ namespace MkGame
 
             Ship.DieEvent += GameOver;
 
-            InitGameEvent?.Invoke();
+            logger.LogInformation("Инициализация игры");
+            InitGameEvent?.Invoke(null, EventArgs.Empty);
         }
 
         // обновление кадра за фиксированное время
@@ -128,17 +131,17 @@ namespace MkGame
                     }
                 }
             }
-            if (_energy != null)
+            if (_energyBox != null)
             {
-                if (_ship.Collision(_energy))
+                if (_ship.Collision(_energyBox))
                 {
                     _ship?.EnergyLow(-50);
-                    _energy = null;
+                    _energyBox = null;
                 }
             }
 
             _bullet?.FrameUpdate();
-            _energy?.FrameUpdate();
+            _energyBox?.FrameUpdate();
         }
 
         internal static void KeyDown(object sender, KeyEventArgs e)
@@ -157,7 +160,7 @@ namespace MkGame
                     break;
             }
 
-            KeyDownEvent?.Invoke(e);
+            KeyDownEvent?.Invoke(null, e);
         }
 
         // перерисовка экрана
@@ -179,7 +182,7 @@ namespace MkGame
 
             _bullet?.Update();
             _ship?.Update();
-            _energy?.Update();
+            _energyBox?.Update();
 
             if (_ship != null)
             {
@@ -200,7 +203,7 @@ namespace MkGame
             CanvasForm.timer.Stop();
             _ship = null;
             _gameFail = true;
-            GameOverEvent?.Invoke();
+            GameOverEvent?.Invoke(null, EventArgs.Empty);
         }
     }
 }

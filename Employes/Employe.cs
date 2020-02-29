@@ -12,8 +12,8 @@ namespace MkGame
 
         public  int CompareTo(Employe other)
         {
-            if (other == null) return 1;
-            return (Salary.CompareTo(other.Salary));
+            if (other == null) throw new ArgumentNullException(nameof(other));
+            return Salary.CompareTo(other.Salary);
         }
         public abstract decimal Salary { get; }
         public override string ToString()

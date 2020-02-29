@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace MkGame
 {
-    class Energy : BaseObjectImg
+    class EnergyBox : BaseObjectImg
     {
-        public Energy(Point pos, Point dir, Size size, string file) : base(pos, dir, size)
+        public EnergyBox(Point pos, Point dir, Size size, string file) : base(pos, dir, size)
         {
             image = Utility.GetImage(file);
             rect = new Rectangle(pos.X, pos.Y, size.Width, size.Height);
