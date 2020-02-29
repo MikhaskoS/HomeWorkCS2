@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Windows.Forms;
 using System.Drawing;
 using System.IO;
+using System.Collections.Generic;
 
 namespace MkGame
 {
@@ -12,22 +14,22 @@ namespace MkGame
 
         public static BaseObject[] obj;
         public static Planet[] planets;
-        public static Asteroid[] asteroids;
+        public static List<Asteroid> asteroids;
         public static Background background = new Background();
 
         private static Ship _ship = new Ship(new Point(-400, 0),
             new Point(5, 5), new Size(80, 60), "Ship.png");
-
         public static Bullet _bullet;
         public static EnergyBox _energyBox;
 
         public static GameLogger logger;
 
         static bool _gameFail = false;
+        static int _gameLevel = 0;
         public static bool GameFail { get => _gameFail; }
 
         #region Events
-        public static event EventHandler  InitGameEvent;
+        public static event EventHandler InitGameEvent;
         public static event EventHandler LoadGameEvent;
         public static event EventHandler GameOverEvent;
         public static event EventHandler KeyDownEvent;
@@ -35,7 +37,7 @@ namespace MkGame
 
         static Game()
         {
-           
+
         }
 
         public static void Load()
@@ -50,7 +52,7 @@ namespace MkGame
                 obj[i] = new Star(
                     new Point(rnd.Next(-Width / 2, Width / 2), rnd.Next(-Height / 2, Height / 2)),
                     new Point(0, 0), new Size(sizeStar, sizeStar))
-                { Velosity = new Point(-rnd.Next(1, 3), 0)};
+                { Velosity = new Point(-rnd.Next(1, 3), 0) };
             }
             planets = new Planet[] {
                 new Planet( new Point(0, -700), new Point(0,0), new Size(1024, 1024), "Sun.png")
@@ -58,22 +60,16 @@ namespace MkGame
                 new Planet( new Point(Width, 0), new Point(0,0), new Size(640, 640), "Planet.png")
                 { Velosity = new Point(-2, 0)}};
 
-            asteroids = new Asteroid[10];
-            for (int i = 0; i < asteroids.Length; i++)
-            {
-                int r = rnd.Next(25, 50);
-                asteroids[i] = new Asteroid(
-                    new Point(rnd.Next(256, 1400), rnd.Next(-Height / 2 + 50, Height / 2 -50 )),
-                  new Point(0, 0), new Size(r, r), "asteroid.png")
-                { Velosity = new Point(-4, 0) };
-            }
+            asteroids = new List<Asteroid>(10);
+            GenerateNewAsteroids();
+
             _energyBox = new EnergyBox(
-                    new Point(rnd.Next(0, Width/4), rnd.Next(-Height / 4 , Height / 4 )),
+                    new Point(rnd.Next(0, Width / 4), rnd.Next(-Height / 4, Height / 4)),
                   new Point(0, 0), new Size(20, 40), "Energy.png")
             { Velosity = new Point(-4, 0) };
 
             logger.LogInformation("Загрузка игры");
-            
+
             LoadGameEvent?.Invoke(null, EventArgs.Empty);
         }
 
@@ -86,7 +82,7 @@ namespace MkGame
 
             Width = width;
             Height = height;
-            
+
             Load();
 
             Ship.DieEvent += GameOver;
@@ -98,11 +94,13 @@ namespace MkGame
         // обновление кадра за фиксированное время
         public static void FrameUpdate()
         {
+            bool _shotAsteroid = false;
+
             foreach (BaseObject ob in obj)
                 ob?.FrameUpdate();
             foreach (Planet pl in planets)
                 pl?.FrameUpdate();
-            for (var i = 0; i < asteroids.Length; i++)
+            for (var i = 0; i < asteroids.Count; i++)
             {
                 if (asteroids[i] == null) continue;
                 asteroids[i].FrameUpdate();
@@ -112,6 +110,7 @@ namespace MkGame
                     System.Media.SystemSounds.Hand.Play();
                     asteroids[i] = null;
                     _bullet = null;
+                    _shotAsteroid = true;
                     _ship?.ChangeScore(50);
                     continue;
                 }
@@ -140,17 +139,21 @@ namespace MkGame
                 }
             }
 
+            if (_shotAsteroid)
+                if (CheckAsteroids())
+                    GenerateNewAsteroids();
+
             _bullet?.FrameUpdate();
             _energyBox?.FrameUpdate();
         }
 
         internal static void KeyDown(object sender, KeyEventArgs e)
         {
-            switch(e.KeyCode)
+            switch (e.KeyCode)
             {
                 case Keys.Space:
-                        _bullet = new Bullet(new Point(_ship.Rect.X + 80, _ship.Rect.Y + 30), 
-                            new Point(0, 0), new Size(20, 2));
+                    _bullet = new Bullet(new Point(_ship.Rect.X + 80, _ship.Rect.Y + 30),
+                        new Point(0, 0), new Size(20, 2));
                     break;
                 case Keys.W:
                     _ship?.Up();
@@ -162,7 +165,6 @@ namespace MkGame
 
             KeyDownEvent?.Invoke(null, e);
         }
-
         // перерисовка экрана
         public static void Update(int width, int height)
         {
@@ -192,11 +194,41 @@ namespace MkGame
                 CanvasForm.Grfx.DrawString(" Score: " + _ship.Score,
                 new Font(FontFamily.GenericSansSerif,
                 15, FontStyle.Italic), Brushes.White, -Width / 2 + 10, -Height / 2 + 50);
+
+                CanvasForm.Grfx.DrawString("Level: " + _gameLevel,
+                new Font(FontFamily.GenericSansSerif,
+                15, FontStyle.Italic), Brushes.White, Width / 2 - 100, -Height / 2 + 20);
             }
             else
                 CanvasForm.Grfx.DrawString("The End", new Font(FontFamily.GenericSansSerif,
                     60, FontStyle.Underline), Brushes.White, -180, -50);
         }
+
+        #region Asteroids 
+        // Проверка астероидов (true - все уничтожены)
+        private static bool CheckAsteroids()
+        {
+            foreach (Asteroid _a in asteroids)
+                if (_a != null) return false;
+            return true;
+        }
+        private static void GenerateNewAsteroids()
+        {
+            _gameLevel++;
+            int velosity = 3 + _gameLevel;
+            int _count = _gameLevel;
+            Random rnd = new Random();
+            
+            for (int i = 0; i < _count; i++)
+            {
+                int r = rnd.Next(25, 50);
+                asteroids.Add ( new Asteroid(
+                    new Point(rnd.Next(256, 1400), rnd.Next(-Height / 2 + 50, Height / 2 - 50)),
+                  new Point(0, 0), new Size(r, r), "asteroid.png")
+                { Velosity = new Point(-velosity, 0) });
+            }
+        }
+        #endregion
 
         private static void GameOver()
         {
