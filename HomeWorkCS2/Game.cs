@@ -20,7 +20,9 @@ namespace MkGame
 
         private static Ship _ship = new Ship(new Point(-400, 0),
             new Point(5, 5), new Size(80, 60), "Ship.png");
-        public static Bullet _bullet;
+        public static List<Bullet>  _poolBullet;
+        private static int _sizePool = 10; // размер пула (стартовый)
+        
         public static EnergyBox _energyBox;
 
         public static GameLogger logger;
@@ -62,6 +64,7 @@ namespace MkGame
                 { Velosity = new Point(-2, 0)}};
 
             asteroids = new List<Asteroid>(10);
+            CreatePollBullet();
             GenerateNewAsteroids();
 
             _energyBox = new EnergyBox(
@@ -101,21 +104,28 @@ namespace MkGame
                 ob?.FrameUpdate();
             foreach (Planet pl in planets)
                 pl?.FrameUpdate();
+
             for (var i = 0; i < asteroids.Count; i++)
             {
                 if (asteroids[i] == null) continue;
                 asteroids[i].FrameUpdate();
 
-                if (_bullet != null && asteroids[i].Collision(_bullet)) // произошло столкновение
+                foreach (Bullet _bullet in _poolBullet)
                 {
-                    System.Media.SystemSounds.Hand.Play();
-                    asteroids[i] = null;
-                    _bullet = null;
-                    _shotAsteroid = true;
-                    _ship?.ChangeScore(50);
-                    continue;
+                    if (!_bullet.Visible) continue;
+                    if (asteroids[i].Collision(_bullet)) // произошло столкновение
+                    {
+                        System.Media.SystemSounds.Hand.Play();
+                        asteroids[i] = null;
+                        _bullet.Visible = false;
+                        _shotAsteroid = true;
+                        _ship?.ChangeScore(50);
+                        break;
+                    }
                 }
-
+                // могли уничтожить
+                if (asteroids[i] == null) continue;
+                    
                 if (_ship != null)
                 {
                     // столкновение корабля с астероидом
@@ -131,7 +141,7 @@ namespace MkGame
                     }
                 }
             }
-            if (_energyBox != null)
+            if (_energyBox != null && _ship != null)
             {
                 if (_ship.Collision(_energyBox))
                 {
@@ -144,7 +154,9 @@ namespace MkGame
                 if(asteroids.All(n=> n==null))
                     GenerateNewAsteroids();
 
-            _bullet?.FrameUpdate();
+            foreach(Bullet _b in _poolBullet)
+                _b?.FrameUpdate();
+            
             _energyBox?.FrameUpdate();
         }
 
@@ -153,8 +165,7 @@ namespace MkGame
             switch (e.KeyCode)
             {
                 case Keys.Space:
-                    _bullet = new Bullet(new Point(_ship.Rect.X + 80, _ship.Rect.Y + 30),
-                        new Point(0, 0), new Size(20, 2));
+                    GenerateBullet();
                     break;
                 case Keys.W:
                     _ship?.Up();
@@ -183,7 +194,9 @@ namespace MkGame
                 a?.Update();
             }
 
-            _bullet?.Update();
+            foreach (Bullet _b in _poolBullet)
+                _b?.Update();
+            
             _ship?.Update();
             _energyBox?.Update();
 
@@ -221,6 +234,34 @@ namespace MkGame
                   new Point(0, 0), new Size(r, r), "asteroid.png")
                 { Velosity = new Point(-velosity, 0) });
             }
+        }
+        #endregion
+
+        #region Bullet
+        private static void CreatePollBullet()
+        {
+            _poolBullet = new List<Bullet>();
+            for (int i = 0; i < _sizePool; i++)
+                _poolBullet.Add(
+                    new Bullet(new Point(0, 0), new Point(0, 0), new Size(20, 2)));
+        }
+        private static void GenerateBullet()
+        {
+            foreach (Bullet _b in _poolBullet)
+            {
+                if (!_b.Visible)
+                {
+                    _b.SetPosition(new Point(_ship.Rect.X + 80, _ship.Rect.Y + 30));
+                    _b.Visible = true;
+                    return;
+                }
+            }
+
+            // Пула не хватило - расширим его (добавляем элемент)
+            Bullet _bullet = new Bullet(new Point(_ship.Rect.X + 80, _ship.Rect.Y + 30),
+                        new Point(0, 0), new Size(20, 2));
+            _bullet.Visible = true;
+            _poolBullet.Add(_bullet);
         }
         #endregion
 

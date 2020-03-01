@@ -7,8 +7,6 @@ namespace LinqSample
 {
     class Task3
     {
-        //delegate int my_delegate (KeyValuePair<string, int> pair);
-
         public static void Demo1()
         {
             //----------------------------------------------------------
