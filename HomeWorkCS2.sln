@@ -9,6 +9,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lesson02", "Lesson02", "{B2
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Employes", "Employes\Employes.csproj", "{BA0484E8-F5C3-4DFA-A762-5E1C692783D6}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lesson04", "Lesson04", "{03814FEA-022E-4827-BD2C-A4EC6BA5D908}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinqSample", "LinqSample\LinqSample.csproj", "{963F172A-DB8A-4108-B377-AE7D9BA78E4B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,12 +27,17 @@ Global
 		{BA0484E8-F5C3-4DFA-A762-5E1C692783D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA0484E8-F5C3-4DFA-A762-5E1C692783D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA0484E8-F5C3-4DFA-A762-5E1C692783D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{963F172A-DB8A-4108-B377-AE7D9BA78E4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{963F172A-DB8A-4108-B377-AE7D9BA78E4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{963F172A-DB8A-4108-B377-AE7D9BA78E4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{963F172A-DB8A-4108-B377-AE7D9BA78E4B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{BA0484E8-F5C3-4DFA-A762-5E1C692783D6} = {B2200073-78CD-4C0B-9628-32A0F47BD239}
+		{963F172A-DB8A-4108-B377-AE7D9BA78E4B} = {03814FEA-022E-4827-BD2C-A4EC6BA5D908}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {052C62F4-5E42-4A3D-A8CE-37B6C2726404}

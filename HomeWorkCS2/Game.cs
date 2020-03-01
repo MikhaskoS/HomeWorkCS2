@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections;
 using System.Windows.Forms;
 using System.Drawing;
@@ -140,7 +141,7 @@ namespace MkGame
             }
 
             if (_shotAsteroid)
-                if (CheckAsteroids())
+                if(asteroids.All(n=> n==null))
                     GenerateNewAsteroids();
 
             _bullet?.FrameUpdate();
@@ -205,13 +206,6 @@ namespace MkGame
         }
 
         #region Asteroids 
-        // Проверка астероидов (true - все уничтожены)
-        private static bool CheckAsteroids()
-        {
-            foreach (Asteroid _a in asteroids)
-                if (_a != null) return false;
-            return true;
-        }
         private static void GenerateNewAsteroids()
         {
             _gameLevel++;
