@@ -214,8 +214,10 @@ namespace MkGame
                 15, FontStyle.Italic), Brushes.White, Width / 2 - 100, -Height / 2 + 20);
             }
             else
+            {
                 CanvasForm.Grfx.DrawString("The End", new Font(FontFamily.GenericSansSerif,
                     60, FontStyle.Underline), Brushes.White, -180, -50);
+            }
         }
 
         #region Asteroids 
@@ -237,7 +239,7 @@ namespace MkGame
         }
         #endregion
 
-        #region Bullet
+        #region Bullet Pool
         private static void CreatePollBullet()
         {
             _poolBullet = new List<Bullet>();
@@ -256,11 +258,12 @@ namespace MkGame
                     return;
                 }
             }
-
             // Пула не хватило - расширим его (добавляем элемент)
             Bullet _bullet = new Bullet(new Point(_ship.Rect.X + 80, _ship.Rect.Y + 30),
-                        new Point(0, 0), new Size(20, 2));
-            _bullet.Visible = true;
+                        new Point(0, 0), new Size(20, 2))
+            {
+                Visible = true
+            };
             _poolBullet.Add(_bullet);
         }
         #endregion

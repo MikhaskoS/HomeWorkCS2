@@ -19,7 +19,7 @@ namespace LinqSample
 
             Console.WriteLine(new string(':', 50));
             //-----------------------------------------------------------------
-            // Linq способ1
+            // Linq способ 1
             // удаляем повтояющиеся элементы с сортировкой
             var key = _list.Distinct().OrderBy(s=>s);  
             foreach (int t in key)
@@ -29,11 +29,10 @@ namespace LinqSample
             Console.WriteLine(new string(':', 50));
             //----------------------------------------------------------------
             // Linq способ 2
-            var query =  _list.GroupBy(s => s);
+            var query = _list.GroupBy(s => s);
             foreach (IGrouping<int, int> grouping in query)
             {
-                Console.WriteLine($"Value: {grouping.Key} Cont: {grouping.Count()}"   );
-                //foreach (int _val in grouping) Console.WriteLine(" — " + _val);
+                Console.WriteLine($"Value: {grouping.Key} Cont: {grouping.Count()}" );
             }
 
         }
