@@ -154,8 +154,7 @@ namespace MkGame
                 if(asteroids.All(n=> n==null))
                     GenerateNewAsteroids();
 
-            foreach(Bullet _b in _poolBullet)
-                _b?.FrameUpdate();
+            _poolBullet.ForEach(b => b?.FrameUpdate());
             
             _energyBox?.FrameUpdate();
         }
@@ -227,7 +226,8 @@ namespace MkGame
             int velosity = 3 + _gameLevel;
             int _count = _gameLevel;
             Random rnd = new Random();
-            
+
+            asteroids.Clear();
             for (int i = 0; i < _count; i++)
             {
                 int r = rnd.Next(25, 50);

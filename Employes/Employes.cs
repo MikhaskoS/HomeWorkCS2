@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MkGame
 {
-    class Employes : IEnumerable
+    class Employes : IEnumerable<Employe>
     {
         private readonly Employe[] _employes;
         public int Lenght {get{return _employes.Length;} }
@@ -38,10 +38,16 @@ namespace MkGame
             }
         }
 
-        public IEnumerator GetEnumerator()
+
+        public IEnumerator<Employe> GetEnumerator()
         {
             foreach (Employe eml in _employes)
                 yield return eml;
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this.GetEnumerator();
         }
     }
 }

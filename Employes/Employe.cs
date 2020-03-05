@@ -23,8 +23,10 @@ namespace MkGame
     }
     class TimeWorker : Employe
     {
-        private decimal salaryForTime = 5; // почасовая оплата
-        private double workTime = 8; // часов отработано
+        /// <summary> Почасовая оплата </summary>
+        private decimal salaryForTime = 5;
+        /// <summary> Отработанные часы </summary>
+        private double workTime = 8;
 
         public decimal SalaryForTime { get => salaryForTime; set => salaryForTime = value; }
         public double WorkTime { get => workTime; set => workTime = value; }
