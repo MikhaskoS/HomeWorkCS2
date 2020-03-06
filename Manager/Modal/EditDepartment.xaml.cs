@@ -36,7 +36,7 @@ namespace Manager.Modal
             InitializeComponent();
             _add = false;
 
-            buttonOk.Content = "Редактировать";
+            buttonOk.Content = "Применить";
             this.Title = "Редактировать отдел";
             _editebleDepartment = department;
 

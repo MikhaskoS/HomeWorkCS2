@@ -43,9 +43,6 @@
             <TabItem Header="Сотрудники">
                 <Grid Background="#FFE5E5E5">
                     <ListView Name="employeesList"  Margin="5" SelectionChanged="EmployeesList_SelectionChanged"  >
-                        <ListView.Resources>
-                            <local:EmployeesManager x:Key="empl"></local:EmployeesManager>
-                        </ListView.Resources>
                         <ListView.ItemsSource>
                             <Binding Path="Employees" Source="{StaticResource EmplManager}"/>
                         </ListView.ItemsSource>

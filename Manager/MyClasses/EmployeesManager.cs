@@ -32,10 +32,6 @@ namespace Manager
         {
             _employees.Add(employee);
         }
-        public static void EditEmployee()
-        {
-            
-        }
         public static void DeleteEmployee(Employee employee) => _employees.Remove(employee);
         #endregion
 
@@ -45,9 +41,6 @@ namespace Manager
             int maxID = _departments.Max(s => s.ID);
             maxID++;
             _departments.Add(new Department { ID = maxID, Title = title });
-        }
-        public static void EditDepartment()
-        { 
         }
         public static void DeleteDepartment(Department department) => _departments.Remove(department);
         #endregion

@@ -45,7 +45,7 @@ namespace Manager.Modal
             textSalary.Text = _editableEmployee.Salary.ToString();
             cmbxDepartment.SelectedValue = _editableEmployee.Id;
 
-            buttonOk.Content = "Редактировать";
+            buttonOk.Content = "Применить";
             this.Title = "Редактировать сотрудника";
         }
 
