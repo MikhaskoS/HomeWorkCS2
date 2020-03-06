@@ -7,32 +7,22 @@ using System.Threading.Tasks;
 
 namespace Manager
 {
-    class Department
+    public class Department
     {
         /// <summary> ID отдела </summary>
         public int ID { get; set; }
         /// <summary> Название отдела </summary>
         public string Title { get; set; }
 
-        public static ArrayList GetDepartamentArrayList()
+        public static List<Department> GetDepartamentArrayList()
         {
-            ArrayList al = new ArrayList
+            List<Department> al =  new List<Department>
                 {
-                    new Department { ID = 1, Title ="Одтел хорошего настроения"},
+                    new Department { ID = 1, Title ="Отдел хорошего настроения"},
                     new Department { ID = 2, Title ="Пофигисты"},
-                    new Department { ID = 2, Title ="Работяги"}
+                    new Department { ID = 3, Title ="Работяги"}
                 };
             return al;
-        }
-
-        // Различные типы коллекций, которые могут понадобиться
-        public static Department[] GetDepartamentArray()
-        {
-            return ((Department[])GetDepartamentArrayList().ToArray(typeof(Employee)));
-        }
-        public static List<Department> GetEmployeesList()
-        {
-            return GetDepartamentArray().ToList<Department>();
         }
     }
 }

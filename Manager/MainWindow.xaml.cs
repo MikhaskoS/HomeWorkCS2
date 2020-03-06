@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +22,14 @@ namespace Manager
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static List<Employee> al;
+        public static List<Department> dp;
+
         public MainWindow()
         {
             InitializeComponent();
         }
     }
+
+   
 }
