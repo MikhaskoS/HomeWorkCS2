@@ -19,27 +19,47 @@ namespace Manager.Modal
     /// </summary>
     public partial class EditEmployee : Window
     {
-        readonly bool _add;  
+        readonly bool _add;
+        readonly Employee _editableEmployee;
+        public static event Action UpdateEmployees;
 
-        public EditEmployee(bool add)
+        public EditEmployee()
         {
             InitializeComponent();
-            _add = add;
-            if (_add)
-            {
-                buttonOk.Content = "Добавить";
-                this.Title = "Добавить сотрудника";
-            }
-            else
-            {
-                buttonOk.Content = "Редактировать";
-                this.Title = "Редактировать сотрудника";
-            }
+            _add = true;
+            cmbxDepartment.ItemsSource = EmployeesManager.DepartmentID;
+
+            buttonOk.Content = "Добавить";
+            this.Title = "Добавить сотрудника";
+            cmbxDepartment.SelectedIndex = 0;
+        }
+        public EditEmployee(Employee employee)
+        {
+            InitializeComponent();
+            _add = false;
+            _editableEmployee = employee;
+            cmbxDepartment.ItemsSource = EmployeesManager.DepartmentID;
+
+            textFirstName.Text = _editableEmployee.FirstName;
+            textLastName.Text = _editableEmployee.LastName;
+            textSalary.Text = _editableEmployee.Salary.ToString();
+            cmbxDepartment.SelectedValue = _editableEmployee.Id;
+
+            buttonOk.Content = "Редактировать";
+            this.Title = "Редактировать сотрудника";
         }
 
-        public static void ShowWindow(bool Add)
+        public static void ShowWindow()
         {
-            EditEmployee editEmployee = new EditEmployee(Add)
+            EditEmployee editEmployee = new EditEmployee()
+            {
+                WindowStartupLocation = WindowStartupLocation.CenterScreen
+            };
+            editEmployee.ShowDialog();
+        }
+        public static void ShowWindow(Employee employee)
+        {
+            EditEmployee editEmployee = new EditEmployee(employee)
             {
                 WindowStartupLocation = WindowStartupLocation.CenterScreen
             };
@@ -48,6 +68,28 @@ namespace Manager.Modal
 
         private void ButtonCansel_Click(object sender, RoutedEventArgs e)
         {
+            this.Close();
+        }
+
+        private void ButtonOk_Click(object sender, RoutedEventArgs e)
+        {
+            string firstName = textFirstName.Text;
+            string lastName = textLastName.Text;
+            int.TryParse(textSalary.Text, out int salary);
+            int department = (int)cmbxDepartment.SelectedValue;
+
+            if (_add)
+                EmployeesManager.AddEmployees(firstName, lastName, salary, department);
+            else
+            {
+                if (firstName != "") _editableEmployee.FirstName = firstName;
+                if (lastName != "") _editableEmployee.LastName = lastName;
+                _editableEmployee.Salary = salary;
+                _editableEmployee.Id = department;
+            }
+
+            UpdateEmployees?.Invoke();
+
             this.Close();
         }
     }

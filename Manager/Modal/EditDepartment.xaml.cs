@@ -20,36 +20,64 @@ namespace Manager.Modal
     public partial class EditDepartment : Window
     {
         readonly bool _add;
+        readonly Department _editebleDepartment;
+        public static event Action UpdateDepartment;
 
-        public EditDepartment(bool add)
+        public EditDepartment()
         {
             InitializeComponent();
-            _add = add;
+            _add = true;
 
-            if (_add)
-            {
-                buttonOk.Content = "Добавить";
-                this.Title = "Добавить отдел";
-            }
-            else
-            {
-                buttonOk.Content = "Редактировать";
-                this.Title = "Редактировать отдел";
-            }
+            buttonOk.Content = "Добавить";
+            this.Title = "Добавить отдел";
+        }
+        public EditDepartment(Department department)
+        {
+            InitializeComponent();
+            _add = false;
+
+            buttonOk.Content = "Редактировать";
+            this.Title = "Редактировать отдел";
+            _editebleDepartment = department;
+
+            textTitle.Text = _editebleDepartment.Title;
         }
 
-
-        public static void ShowWindow(bool Add)
+        public static void ShowWindow()
         {
-            EditDepartment editEmployee = new EditDepartment(Add)
+            EditDepartment editEmployee = new EditDepartment()
             {
                 WindowStartupLocation = WindowStartupLocation.CenterScreen
             };
+            
+            editEmployee.ShowDialog();
+        }
+        public static void ShowWindow(Department department)
+        {
+            EditDepartment editEmployee = new EditDepartment(department)
+            {
+                WindowStartupLocation = WindowStartupLocation.CenterScreen
+            };
+
             editEmployee.ShowDialog();
         }
 
         private void ButtonCansel_Click(object sender, RoutedEventArgs e)
         {
+            this.Close();
+        }
+
+        private void ButtonOk_Click(object sender, RoutedEventArgs e)
+        {
+            string title = textTitle.Text;
+
+            if (_add)
+                EmployeesManager.AddDepartment(title);
+            else
+                _editebleDepartment.Title = textTitle.Text;
+
+            UpdateDepartment?.Invoke();
+
             this.Close();
         }
     }

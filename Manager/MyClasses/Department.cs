@@ -20,7 +20,9 @@ namespace Manager
                 {
                     new Department { ID = 1, Title ="Отдел хорошего настроения"},
                     new Department { ID = 2, Title ="Пофигисты"},
-                    new Department { ID = 3, Title ="Работяги"}
+                    new Department { ID = 3, Title ="Работяги"},
+                    new Department { ID = 4, Title ="Ни рыба ни мясо"},
+                    new Department { ID = 5, Title ="Профсоюз"}
                 };
             return al;
         }

@@ -27,10 +27,16 @@ namespace Manager
         public static List<Employee> al;
         public static List<Department> dp;
 
+        private Department _currentDepartment;
+        private Employee _currentEmployee;
+
         public MainWindow()
         {
             InitializeComponent();
+            EditEmployee.UpdateEmployees += Refresh;
+            EditDepartment.UpdateDepartment += Refresh;
         }
+
 
         private void ButtonNew_Click(object sender, RoutedEventArgs e)
         {
@@ -38,24 +44,76 @@ namespace Manager
             switch (tabWindow.SelectedIndex)
             {
                 case 0:
-                    EditDepartment.ShowWindow(true);
+                    EditDepartment.ShowWindow();
                     break;
                 case 1:
-                    EditEmployee.ShowWindow(true);
+                    EditEmployee.ShowWindow();
                     break;
             }
         }
 
-        private void ButtonCansel_Click(object sender, RoutedEventArgs e)
+        private void ButtonEdit_Click(object sender, RoutedEventArgs e)
         {
             switch (tabWindow.SelectedIndex)
             {
                 case 0:
-                    EditDepartment.ShowWindow(false);
+                    EditDepartment.ShowWindow(_currentDepartment);
                     break;
                 case 1:
-                    EditEmployee.ShowWindow(false);
+                    EditEmployee.ShowWindow(_currentEmployee);
                     break;
+            }
+        }
+
+        private void ButtonDel_Click(object sender, RoutedEventArgs e)
+        {
+            switch (tabWindow.SelectedIndex)
+            {
+                case 0:
+                    if (MessageBox.Show("Вы уверены?", "Удаление",
+                        MessageBoxButton.YesNo, MessageBoxImage.Exclamation) == MessageBoxResult.Yes)
+                    {
+                        EmployeesManager.DeleteDepartment(_currentDepartment);
+                        Refresh();
+                    }
+                    break;
+                case 1:
+                    if (MessageBox.Show("Вы уверены?", "Удаление",
+                        MessageBoxButton.YesNo, MessageBoxImage.Exclamation) == MessageBoxResult.Yes)
+                    {
+                        EmployeesManager.DeleteEmployee(_currentEmployee);
+                        Refresh();
+                    }
+                    break;
+            }
+        }
+
+        public void Refresh()
+        {
+            employeesList.Items.Refresh();
+            departmentList.Items.Refresh();
+        }
+
+        private void EmployeesList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            var _v = e.AddedItems;
+
+            if (_v.Count == 0) return;
+            if (_v[0] is Employee)
+            {
+                _currentEmployee = (Employee)_v[0];
+            }
+        }
+
+        private void DepartmentList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var _v = e.AddedItems;
+
+            if (_v.Count == 0) return;
+            if (_v[0] is Department)
+            {
+                _currentDepartment = (Department)_v[0];
             }
         }
     }

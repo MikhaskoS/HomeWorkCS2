@@ -22,8 +22,9 @@ namespace Manager
                     new Employee { Id = 1, FirstName = "Вася", LastName = "Хилый", Salary= 100 },
                     new Employee { Id = 2, FirstName = "Вальдемар", LastName = "Пупкин" , Salary= 150 },
                     new Employee { Id = 3, FirstName = "Элеонора", LastName = "Крюгер" , Salary= 200 },
-                    new Employee { Id = 1, FirstName = "Зоя", LastName = "Идрисова" , Salary= 140 },
-                    new Employee { Id = 2, FirstName = "Мавра", LastName = "Тарасова" , Salary= 400 }
+                    new Employee { Id = 4, FirstName = "Зоя", LastName = "Идрисова" , Salary= 140 },
+                    new Employee { Id = 2, FirstName = "Мавра", LastName = "Тарасова" , Salary= 400 },
+                    new Employee { Id = 2, FirstName = "Никанор", LastName = "Задрищев" , Salary= 220 }
                 };
             return al;
         }

@@ -20,7 +20,7 @@
             <TabItem Header="Отделы">
                 <Grid Background="#FFE5E5E5">
                     <ListView Name="departmentList"  Margin="5" 
-                              ItemsSource="{Binding Departments, Source={StaticResource EmplManager}}">
+                              ItemsSource="{Binding Departments, Source={StaticResource EmplManager}}" SelectionChanged="DepartmentList_SelectionChanged">
                         <ListView.View>
                             <GridView >
                                 <GridView.Columns>
@@ -42,7 +42,7 @@
             </TabItem>
             <TabItem Header="Сотрудники">
                 <Grid Background="#FFE5E5E5">
-                    <ListView Name="employeesList"  Margin="5"  >
+                    <ListView Name="employeesList"  Margin="5" SelectionChanged="EmployeesList_SelectionChanged"  >
                         <ListView.Resources>
                             <local:EmployeesManager x:Key="empl"></local:EmployeesManager>
                         </ListView.Resources>
@@ -93,8 +93,8 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Button Grid.Column="0"  Name="buttonNew" Click="ButtonNew_Click">Добавить</Button>
-            <Button Grid.Column="1"  Name="buttonCansel" Click="ButtonCansel_Click">Изменить</Button>
-            <Button Grid.Column="2"  Name="buttonDel">Удалить</Button>
+            <Button Grid.Column="1"  Name="buttonCansel" Click="ButtonEdit_Click">Изменить</Button>
+            <Button Grid.Column="2"  Name="buttonDel" Click="ButtonDel_Click">Удалить</Button>
         </Grid>
     </Grid>
 </Window>

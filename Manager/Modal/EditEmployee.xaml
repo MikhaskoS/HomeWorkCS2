@@ -44,7 +44,7 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" Name="lblDepartment" VerticalAlignment="Center" HorizontalAlignment="Left">Отдел:</Label>
-            <ComboBox Grid.Column="1" x:Name="cmbxDepartment"></ComboBox>
+            <ComboBox Grid.Column="1" Name="cmbxDepartment"></ComboBox>
         </Grid>
         <Grid Grid.Row="4" Margin="2">
             <Grid.ColumnDefinitions>
@@ -52,7 +52,7 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Button Grid.Column="1"  Name="buttonCansel" HorizontalAlignment="Right" Click="ButtonCansel_Click">Отмена</Button>
-            <Button Grid.Column="0"  HorizontalAlignment="Left"  Name="buttonOk">Добавить/Ред</Button>
+            <Button Grid.Column="0"  HorizontalAlignment="Left"  Name="buttonOk" Click="ButtonOk_Click">Добавить/Ред</Button>
         </Grid>
     </Grid>
 </Window>

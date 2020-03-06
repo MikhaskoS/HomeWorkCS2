@@ -85,7 +85,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MyClasses\Employees.cs" />
+    <Compile Include="MyClasses\EmployeesManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
