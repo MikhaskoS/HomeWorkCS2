@@ -1,0 +1,58 @@
+﻿<Window x:Class="Manager.Modal.EditEmployee"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Manager.Modal"
+        mc:Ignorable="d"
+        Title="Добавить/Редактировать служащего" Height="197" Width="326.167">
+    <Grid Margin="2">
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Name="lblFirstName" VerticalAlignment="Center" HorizontalAlignment="Left">Имя:</Label>
+            <TextBox  Grid.Column="1" Name="textFirstName" VerticalAlignment="Center" ></TextBox>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Name="lblLastName" VerticalAlignment="Center" HorizontalAlignment="Left">Фамилия:</Label>
+            <TextBox  Grid.Column="1" Name="textLastName" VerticalAlignment="Center" ></TextBox>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Name="lblSalary" VerticalAlignment="Center" HorizontalAlignment="Left">Зарплата:</Label>
+            <TextBox  Grid.Column="1" Name="textSalary" VerticalAlignment="Center" ></TextBox>
+        </Grid>
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Name="lblDepartment" VerticalAlignment="Center" HorizontalAlignment="Left">Отдел:</Label>
+            <ComboBox Grid.Column="1" x:Name="cmbxDepartment"></ComboBox>
+        </Grid>
+        <Grid Grid.Row="4" Margin="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="1"  Name="buttonCansel" HorizontalAlignment="Right" Click="ButtonCansel_Click">Отмена</Button>
+            <Button Grid.Column="0"  HorizontalAlignment="Left"  Name="buttonOk">Добавить/Ред</Button>
+        </Grid>
+    </Grid>
+</Window>

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Manager"
         xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="Manager" Height="480" Width="640">
+        Title="Manager" Height="480" Width="640" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <local:EmployeesManager x:Key="EmplManager"></local:EmployeesManager>
     </Window.Resources>
@@ -16,7 +16,7 @@
             <RowDefinition />
             <RowDefinition Height="25"/>
         </Grid.RowDefinitions>
-        <TabControl Grid.Row="0"  Margin="1,1,1,1" >
+        <TabControl Name="tabWindow" Grid.Row="0"  Margin="1,1,1,1" >
             <TabItem Header="Отделы">
                 <Grid Background="#FFE5E5E5">
                     <ListView Name="departmentList"  Margin="5" 
@@ -92,8 +92,8 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0"  Name="buttonNew">Добавить</Button>
-            <Button Grid.Column="1"  Name="buttonCansel">Изменить</Button>
+            <Button Grid.Column="0"  Name="buttonNew" Click="ButtonNew_Click">Добавить</Button>
+            <Button Grid.Column="1"  Name="buttonCansel" Click="ButtonCansel_Click">Изменить</Button>
             <Button Grid.Column="2"  Name="buttonDel">Удалить</Button>
         </Grid>
     </Grid>
