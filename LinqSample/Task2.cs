@@ -34,7 +34,26 @@ namespace LinqSample
             {
                 Console.WriteLine($"Value: {grouping.Key} Cont: {grouping.Count()}" );
             }
+            Console.WriteLine(new string(':', 50));
+            //----------------------------------------------------------------
+            // Linq способ 3
+            string GetGroupKey(int n)
+            {
+                return n.ToString("0000");
+            }
+            var counts3 = _list.GroupBy(GetGroupKey)
+                .Select(group => new { value = group.Key, count = group.Count() })
+                .OrderBy(v => v.value)
+                .ToArray();
 
+            counts3.Print();
+            Console.WriteLine(new string(':', 50));
+            //----------------------------------------------------------------
+            // Linq способ 4
+            var count4 = _list.GroupBy(n => n)
+                .ToDictionary(group => group.Key, group => group.Count());
+
+            count4.Print();
         }
 
 
