@@ -22,7 +22,7 @@ namespace Manager.Modal
         readonly bool _add;
         readonly Employee _editableEmployee;
 
-        public static event Action AddEmployees;
+        //public static event Action AddEmployees;
 
         public EditEmployee()
         {
@@ -82,7 +82,7 @@ namespace Manager.Modal
             if (_add)
             {
                 EmployeesManager.AddEmployees(firstName, lastName, salary, department);
-                AddEmployees?.Invoke();
+                //AddEmployees?.Invoke();
             }
             else
             {

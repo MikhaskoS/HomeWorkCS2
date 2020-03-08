@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 
@@ -8,11 +9,13 @@ namespace Manager
 {
     public class EmployeesManager 
     {
-        private static List<Employee> _employees = Employee.GetEmployeesArrayList();
-        private static List<Department> _departments = Department.GetDepartamentArrayList();
+        // Для того, чтобы избавить себя от ручных обновлений полей интерфейса при изменении в коллекциях
+        // удобно использовать ObservableCollection
+        private static ObservableCollection<Employee> _employees = Employee.GetEmployeesArrayList();
+        private static ObservableCollection<Department> _departments = Department.GetDepartamentArrayList();
 
-        public static List<Employee> Employees { get => _employees; set => _employees = value; }
-        public static List<Department> Departments { get => _departments; set => _departments = value; }
+        public static ObservableCollection<Employee> Employees { get => _employees; set => _employees = value; }
+        public static ObservableCollection<Department> Departments { get => _departments; set => _departments = value; }
         public static List<int> DepartmentID { get => _departments.Select(s => s.ID).ToList<int>();}
 
         public static string GetDepartmentTitle(int id)

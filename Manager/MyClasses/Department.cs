@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,9 +18,9 @@ namespace Manager
         /// <summary> Название отдела </summary>
         public string Title { get => _title; set { _title = value; OnPropertyChanged(); } }
 
-        public static List<Department> GetDepartamentArrayList()
+        public static ObservableCollection<Department> GetDepartamentArrayList()
         {
-            List<Department> al = new List<Department>
+            ObservableCollection<Department> al = new ObservableCollection<Department>
                 {
                     new Department { ID = 1, Title ="Отдел хорошего настроения"},
                     new Department { ID = 2, Title ="Пофигисты"},

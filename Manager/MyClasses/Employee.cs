@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -23,9 +24,10 @@ namespace Manager
         /// <summary> Зарплата </summary>
         public decimal Salary { get => _salary; set { _salary = value; OnPropertyChanged(); } }
 
-        public static List<Employee> GetEmployeesArrayList()
+
+        public static ObservableCollection<Employee> GetEmployeesArrayList()
         {
-            List<Employee> al = new List<Employee>
+            ObservableCollection<Employee> al = new ObservableCollection<Employee>
                 {
                     new Employee { Id = 1, FirstName = "Вася", LastName = "Хилый", Salary= 100 },
                     new Employee { Id = 2, FirstName = "Вальдемар", LastName = "Пупкин" , Salary= 150 },

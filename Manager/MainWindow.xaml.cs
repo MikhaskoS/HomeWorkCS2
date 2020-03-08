@@ -33,8 +33,8 @@ namespace Manager
         public MainWindow()
         {
             InitializeComponent();
-            EditEmployee.AddEmployees += Refresh;
-            EditDepartment.AddDepartment += Refresh;
+            //EditEmployee.AddEmployees += Refresh;
+            //EditDepartment.AddDepartment += Refresh;
         }
 
 
@@ -74,7 +74,7 @@ namespace Manager
                         MessageBoxButton.YesNo, MessageBoxImage.Exclamation) == MessageBoxResult.Yes)
                     {
                         EmployeesManager.DeleteDepartment(_currentDepartment);
-                        Refresh();
+                        //Refresh();
                     }
                     break;
                 case 1:
@@ -82,17 +82,18 @@ namespace Manager
                         MessageBoxButton.YesNo, MessageBoxImage.Exclamation) == MessageBoxResult.Yes)
                     {
                         EmployeesManager.DeleteEmployee(_currentEmployee);
-                        Refresh();
+                        //Refresh();
                     }
                     break;
             }
         }
 
-        public void Refresh()
-        {
-            employeesList.Items.Refresh();
-            departmentList.Items.Refresh();
-        }
+        // В этом методе теперь нет необходимости, поскольку используется ObservableCollection
+        //public void Refresh()
+        //{
+        //    employeesList.Items.Refresh();
+        //    departmentList.Items.Refresh();
+        //}
 
         private void EmployeesList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

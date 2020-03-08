@@ -15,7 +15,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
-            <RowDefinition Height="25"/>
+            <RowDefinition Height="35"/>
         </Grid.RowDefinitions>
         <TabControl Name="tabWindow" Grid.Row="0"  Margin="1,1,1,1" >
             <TabItem Header="Отделы">
@@ -68,7 +68,7 @@
                                                         <ColumnDefinition Width="200"></ColumnDefinition>
                                                     </Grid.ColumnDefinitions>
                                                     <ComboBox Grid.Column="0" Name="cmbID"   ItemsSource="{Binding DepartmentID, 
-                                                    Source={StaticResource EmplManager}}" IsEditable="True" IsReadOnly="True" 
+                                                    Source={StaticResource EmplManager}}" IsReadOnly="True" 
                                                           SelectedItem="{Binding Id}">
                                                     </ComboBox>
                                                     <Label Grid.Column="1" Content="{Binding ElementName=cmbID, Path=SelectedValue,
@@ -85,7 +85,7 @@
                 </Grid>
             </TabItem>
         </TabControl>
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" Margin="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
