@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Manager
 {
@@ -18,8 +17,15 @@ namespace Manager
 
         public static string GetDepartmentTitle(int id)
         {
-            string title = ((List<Department>)_departments.Select(s => s.ID == id)).First().Title;
+            if (id == 0) return "none";
+            Department _l = _departments.First(s => s.ID == id);
+            string title = _l.Title;
             return title;
+        }
+        public static int GetDepartmentID(string title)
+        {
+            int id = _departments.First(s => s.Title == title).ID;
+            return id;
         }
 
         #region Employees

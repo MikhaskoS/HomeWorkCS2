@@ -69,6 +69,7 @@
     <Compile Include="Modal\EditEmployee.xaml.cs">
       <DependentUpon>EditEmployee.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MyClasses\Converter.cs" />
     <Compile Include="MyClasses\Department.cs" />
     <Compile Include="MyClasses\Employee.cs" />
     <Compile Include="MainWindow.xaml.cs">
