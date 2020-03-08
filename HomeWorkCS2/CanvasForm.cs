@@ -12,6 +12,13 @@ namespace MkGame
 {
     public partial class CanvasForm : Form
     {
+        public static Timer timer;
+
+        private readonly bool _closing = false;
+        private bool _startGame = false;
+        private static Graphics _grfx;
+        public static Graphics Grfx { get => _grfx; }
+
         public CanvasForm()
         {
             // Здесь устанавливается двойной буффер!
@@ -25,25 +32,22 @@ namespace MkGame
             Game.Init(this.ClientSize.Width, this.ClientSize.Height);
             SplashScreen.Init(this.ClientSize.Width, this.ClientSize.Height);
 
-            this.FormClosing += Canvas_FormClosing;
+            this.KeyDown += CanvasForm_KeyDown;
+            this.Disposed += CanvasForm_Disposed;
             _startGame = false;
 
 
-            Timer timer = new Timer { Interval = 60 };
+            timer = new Timer { Interval = 60 };
             timer.Tick += Timer_Tick;
             timer.Start();
         }
 
-        private void Canvas_FormClosing(object sender, FormClosingEventArgs e)
+        private void CanvasForm_Disposed(object sender, EventArgs e)
         {
-            _closing = true;
+            Game.logger.Close();
         }
 
-        private bool _closing = false;
-        private bool _startGame = false;
-        private static Graphics _grfx;
-        public static Graphics Grfx { get => _grfx;}
-
+        // Контролируемая частота будет использованая для математических расчетов
         private  void Timer_Tick(object sender, EventArgs e)
         {
             if (_startGame)
@@ -52,8 +56,11 @@ namespace MkGame
                 SplashScreen.FrameUpdate();
         }
 
+        // Paint выполняет перерисовку экрана с непредсказуемой частотой 
+        // Здесь размещена пассивная перерисовка, делающая движение плавным
         private void Canvas_Paint(object sender, PaintEventArgs e)
         {
+            if (this.IsDisposed) return;
             if (_closing) return;
 
             // начало координат в центре экрана
@@ -64,16 +71,21 @@ namespace MkGame
             if (_startGame)
                 Game.Update(this.ClientSize.Width, this.ClientSize.Height);
             else
-                SplashScreen.Update(this.ClientSize.Width, this.ClientSize.Height);
+             SplashScreen.Update(this.ClientSize.Width, this.ClientSize.Height);
 
+
+            Application.DoEvents();
             this.Invalidate();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+
+        private void CanvasForm_KeyDown(object sender, KeyEventArgs e)
         {
-            _startGame = true;
-            button1.Hide();
-        }
+            if (!_startGame) _startGame = true;
+
+            if (Game.GameFail) return;
+            Game.KeyDown(sender, e);
+        }        
     }
 
 }

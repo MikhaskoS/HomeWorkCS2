@@ -15,7 +15,9 @@ namespace MkGame
         public static int Width { get; set; }
         public static int Height { get; set; }
 
-        public static BaseObject[] _obj;
+        public static BaseObject[] gameObjects;
+        private static int _timer = 0;
+        private static bool _view = true;
 
         public SplashScreen()
         {
@@ -24,15 +26,15 @@ namespace MkGame
         {
             Random rnd = new Random();
             background = new Background();
-            _obj = new BaseObject[30];
-            for (int i = 0; i < _obj.Length; i++)
+            gameObjects = new BaseObject[30];
+            for (int i = 0; i < gameObjects.Length; i++)
             {
                 int sizeStar = rnd.Next(1, 6);
 
-                _obj[i] = new Star(
+                gameObjects[i] = new Star(
                     new Point(rnd.Next(-Width / 2, Width / 2), rnd.Next(-Height / 2, Height / 2)),
-                    new Point(0, 0), new Size(sizeStar, sizeStar));
-                _obj[i].Velosity = new Point(-rnd.Next(1, 3), 0);
+                    new Point(0, 0), new Size(sizeStar, sizeStar))
+                { Velosity = new Point(-rnd.Next(1, 3), 0)};
             }
         }
         public static void Init(int width, int height)
@@ -45,8 +47,10 @@ namespace MkGame
         // обновление кадра за фиксированное время
         public static void FrameUpdate()
         {
-            foreach (BaseObject ob in _obj)
-                ob.FrameUpdate();
+            foreach (BaseObject ob in gameObjects)
+                ob?.FrameUpdate();
+
+            _view = Utility.Flicker(5, 5, ref _timer);
         }
 
         // перерисовка экрана
@@ -55,15 +59,21 @@ namespace MkGame
             Width = width;
             Height = height;
 
-            background.Draw(CanvasForm.Grfx);
+            background?.Draw(CanvasForm.Grfx);
 
             CanvasForm.Grfx.DrawString("Asteroid", new Font(FontFamily.GenericSansSerif,
                 60, FontStyle.Underline), Brushes.Violet, -180, -150);
+            CanvasForm.Grfx.DrawString("W/S - движение корабля", new Font(FontFamily.GenericSansSerif,
+                15, FontStyle.Italic), Brushes.Violet, -180, 30);
+            CanvasForm.Grfx.DrawString("Space - выстрел", new Font(FontFamily.GenericSansSerif,
+             15, FontStyle.Italic), Brushes.Violet, -180, 60);
 
-            foreach (BaseObject ob in _obj)
-                ob.Update();
+            if(_view)
+                CanvasForm.Grfx.DrawString("Press any key...", new Font(FontFamily.GenericSansSerif,
+                    15, FontStyle.Italic), Brushes.Yellow, -120, 250);
 
-            Application.DoEvents();
+            foreach (BaseObject ob in gameObjects)
+                ob?.Update();
         }
     }
 }

@@ -8,21 +8,15 @@ using System.Threading.Tasks;
 
 namespace MkGame
 {
-    class Planet : BaseObject
+    class Planet : BaseObjectImg
     {
-        private Image _image;
-        RectangleF rect;
-
         public Planet(Point pos, Point dir, Size size, string file) : base(pos, dir, size)
         {
-            _image = Utility.GetImage(file);
-            rect = new RectangleF(pos.X, pos.Y, size.Width, size.Height);
+            image = Utility.GetImage(file);
+            rect = new Rectangle(pos.X, pos.Y, size.Width, size.Height);
         }
 
-        public override void Draw()
-        {
-            CanvasForm.Grfx.DrawImage(_image, rect);
-        }
+        public override void Draw() => CanvasForm.Grfx.DrawImage(image, rect);
 
         public override void Update()
         {
@@ -32,7 +26,7 @@ namespace MkGame
 
         public override void FrameUpdate()
         {
-            rect.X = rect.X + velosity.X;
+            rect.X +=  velosity.X;
         }
     }
 }

@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -47,7 +50,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Background.cs" />
-    <Compile Include="BaseObject.cs" />
+    <Compile Include="GameException.cs" />
+    <Compile Include="GameLogger.cs" />
+    <Compile Include="GameObjects\Asteroid.cs" />
+    <Compile Include="GameObjects\BaseObject.cs" />
     <Compile Include="CanvasForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -55,11 +61,22 @@
       <DependentUpon>CanvasForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Game.cs" />
-    <Compile Include="Planet.cs" />
+    <Compile Include="GameObjects\BaseObjectImg.cs" />
+    <Compile Include="GameObjects\Bullet.cs" />
+    <Compile Include="GameObjects\Energy.cs" />
+    <Compile Include="GameObjects\Planet.cs" />
+    <Compile Include="GameObjects\Ship.cs" />
+    <Compile Include="Logger\DebugLogger.cs" />
+    <Compile Include="Logger\FileLogger.cs" />
+    <Compile Include="Logger\ILogger.cs" />
+    <Compile Include="Logger\ListLogger.cs" />
+    <Compile Include="Logger\Logger.cs" />
+    <Compile Include="Logger\TrasseLoger.cs" />
+    <Compile Include="Logger\VisualStudioLogger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SplashScreen.cs" />
-    <Compile Include="Star.cs" />
+    <Compile Include="GameObjects\Star.cs" />
     <Compile Include="Utility.cs" />
     <EmbeddedResource Include="CanvasForm.resx">
       <DependentUpon>CanvasForm.cs</DependentUpon>
@@ -87,9 +104,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Images\Asteroid.png" />
+    <Content Include="Images\Energy.png" />
     <Content Include="Images\Planet.png" />
     <Content Include="Images\PurpleNebula.jpg" />
+    <Content Include="Images\Ship.png" />
     <Content Include="Images\Sun.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

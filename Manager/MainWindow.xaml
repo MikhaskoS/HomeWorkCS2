@@ -1,0 +1,97 @@
+﻿<Window x:Class="Manager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Manager"
+        xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
+        mc:Ignorable="d"
+        Title="Manager" Height="480" Width="640" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <local:EmployeesManager x:Key="EmplManager"></local:EmployeesManager>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="25"/>
+        </Grid.RowDefinitions>
+        <TabControl Name="tabWindow" Grid.Row="0"  Margin="1,1,1,1" >
+            <TabItem Header="Отделы">
+                <Grid Background="#FFE5E5E5">
+                    <ListView Name="departmentList"  Margin="5" 
+                              ItemsSource="{Binding Departments, Source={StaticResource EmplManager}}" SelectionChanged="DepartmentList_SelectionChanged">
+                        <ListView.View>
+                            <GridView >
+                                <GridView.Columns>
+                                    <GridViewColumn Header="ID" Width="100" 
+                                                    DisplayMemberBinding="{Binding ID}">
+                                    </GridViewColumn>
+                                    <GridViewColumn Header="Наименование отдела" Width="Auto">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Title}"></TextBlock>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                </GridView.Columns>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Сотрудники">
+                <Grid Background="#FFE5E5E5">
+                    <ListView Name="employeesList"  Margin="5" SelectionChanged="EmployeesList_SelectionChanged"  >
+                        <ListView.ItemsSource>
+                            <Binding Path="Employees" Source="{StaticResource EmplManager}"/>
+                        </ListView.ItemsSource>
+                        <ListView.View>
+                            <GridView >
+                                <GridView.Columns>
+                                    <GridViewColumn Header="Имя" Width="100" 
+                                                    DisplayMemberBinding="{Binding FirstName}">
+                                    </GridViewColumn>
+                                    <GridViewColumn Header="Фамилия" Width="150"
+                                                    DisplayMemberBinding="{Binding LastName}">
+                                    </GridViewColumn>
+                                    <GridViewColumn Header="Зарплата" Width="100"
+                                                    DisplayMemberBinding="{Binding Salary}">
+                                    </GridViewColumn>
+                                    <GridViewColumn Header="Отдел ID" Width="100">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <ComboBox ItemsSource="{Binding DepartmentID, 
+                                                    Source={StaticResource EmplManager}}" IsEditable="True" IsReadOnly="True" 
+                                                          SelectedItem="{Binding Id}">
+                                                </ComboBox>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <!--<GridViewColumn Header="Наименование отдела" Width="Auto">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock ></TextBlock>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>-->
+                                </GridView.Columns>
+
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0"  Name="buttonNew" Click="ButtonNew_Click">Добавить</Button>
+            <Button Grid.Column="1"  Name="buttonCansel" Click="ButtonEdit_Click">Изменить</Button>
+            <Button Grid.Column="2"  Name="buttonDel" Click="ButtonDel_Click">Удалить</Button>
+        </Grid>
+    </Grid>
+</Window>

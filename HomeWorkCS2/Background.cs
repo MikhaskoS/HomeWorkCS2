@@ -10,8 +10,7 @@ namespace MkGame
 {
     class Background
     {
-        private  Image background;
-        Rectangle rect;
+        private readonly  Image background;
         int _xPos;
         int _yPos;
         int _width;
@@ -30,12 +29,11 @@ namespace MkGame
             Height = height;
 
             background = Utility.GetImage( "PurpleNebula.jpg");
-            rect = new Rectangle(xPos, yPos, width, height);
         }
 
         public void Draw(Graphics grfx)
         {
-            grfx.DrawImage(background, new Point(XPos,YPos));
+            grfx?.DrawImage(background, new Point(XPos,YPos));
         }
     }
 }
