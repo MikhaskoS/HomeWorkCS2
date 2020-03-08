@@ -7,16 +7,19 @@ using System.Threading.Tasks;
 
 namespace Manager
 {
-    public class Department
+    public class Department : NotifyingObj
     {
+        private int _iD;
+        private string _title;
+
         /// <summary> ID отдела </summary>
-        public int ID { get; set; }
+        public int ID { get => _iD; set { _iD = value; OnPropertyChanged(); } }
         /// <summary> Название отдела </summary>
-        public string Title { get; set; }
+        public string Title { get => _title; set { _title = value; OnPropertyChanged(); } }
 
         public static List<Department> GetDepartamentArrayList()
         {
-            List<Department> al =  new List<Department>
+            List<Department> al = new List<Department>
                 {
                     new Department { ID = 1, Title ="Отдел хорошего настроения"},
                     new Department { ID = 2, Title ="Пофигисты"},

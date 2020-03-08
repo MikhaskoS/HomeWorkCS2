@@ -1,20 +1,27 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace Manager
 {
-    public class Employee
+    public class Employee : NotifyingObj
     {
+        private int _id;
+        private string _firstName;
+        private string _lastName;
+        private decimal _salary;
+
         /// <summary> ID отдела, в котором работает сотрудник </summary>
-        public int Id { get; set; }
+        public int Id { get => _id; set { _id = value; OnPropertyChanged(); } }
         /// <summary> Имя сотрудника </summary>
-        public string FirstName { get; set; }
+        public string FirstName { get => _firstName; set { _firstName = value; OnPropertyChanged(); } }
         /// <summary> Фамилия сотрудника </summary>
-        public string LastName { get; set; }
+        public string LastName { get => _lastName; set { _lastName = value; OnPropertyChanged(); } }
         /// <summary> Зарплата </summary>
-        public decimal Salary { get; set; }
+        public decimal Salary { get => _salary; set { _salary = value; OnPropertyChanged(); } }
 
         public static List<Employee> GetEmployeesArrayList()
         {

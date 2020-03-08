@@ -33,8 +33,8 @@ namespace Manager
         public MainWindow()
         {
             InitializeComponent();
-            EditEmployee.UpdateEmployees += Refresh;
-            EditDepartment.UpdateDepartment += Refresh;
+            EditEmployee.AddEmployees += Refresh;
+            EditDepartment.AddDepartment += Refresh;
         }
 
 
