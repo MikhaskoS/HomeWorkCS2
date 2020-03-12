@@ -1,0 +1,36 @@
+﻿<Window x:Class="Employees.EditDepartment"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"    mc:Ignorable="d"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:Employees.ViewModels"
+        Title="Добавить/Редактировать отдел" Height="150" Width="396">
+    <Window.DataContext>
+        <vm:EditDepartmentVM></vm:EditDepartmentVM>
+    </Window.DataContext>
+    <Grid Margin="2">
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Name="lblTitle" VerticalAlignment="Center" HorizontalAlignment="Left">Имя:</Label>
+            <TextBox  Grid.Column="1" Name="textTitle" VerticalAlignment="Center" ></TextBox>
+        </Grid>
+
+        <Grid Grid.Row="2" Margin="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="1"  Name="buttonCansel" HorizontalAlignment="Right" Click="ButtonCansel_Click">Отмена</Button>
+            <Button Grid.Column="0"  HorizontalAlignment="Left"  Name="buttonOk" Click="ButtonOk_Click">Добавить/Ред</Button>
+        </Grid>
+        <TextBox Grid.Row="1"  TextWrapping="Wrap" Text="Описание..." FontStyle="Italic" />
+    </Grid>
+</Window>
