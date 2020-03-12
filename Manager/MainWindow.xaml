@@ -10,6 +10,7 @@
     <Window.Resources>
         <local:EmployeesManager x:Key="EmplManager"></local:EmployeesManager>
         <local:Converter x:Key="MyConverter"></local:Converter>
+        <local:Employee x:Key="Empl"></local:Employee>
     </Window.Resources>
     
     <Grid>
@@ -43,14 +44,15 @@
             </TabItem>
             <TabItem Header="Сотрудники">
                 <Grid Background="#FFE5E5E5">
-                    <ListView Name="employeesList"  Margin="5" SelectionChanged="EmployeesList_SelectionChanged"  >
-                        <ListView.ItemsSource>
-                            <Binding Path="Employees" Source="{StaticResource EmplManager}"/>
-                        </ListView.ItemsSource>
+                    <ListView Name="employeesList"  Margin="5"  SelectionChanged="EmployeesList_SelectionChanged"  >
+                        <ListView.ItemTemplate>
+                            <DataTemplate >
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
                         <ListView.View>
-                            <GridView >
+                            <GridView>
                                 <GridView.Columns>
-                                    <GridViewColumn x:Name="qqq" Header="Имя" Width="100" 
+                                    <GridViewColumn Header="Имя" Width="100" 
                                                     DisplayMemberBinding="{Binding FirstName}">
                                     </GridViewColumn>
                                     <GridViewColumn Header="Фамилия" Width="150"

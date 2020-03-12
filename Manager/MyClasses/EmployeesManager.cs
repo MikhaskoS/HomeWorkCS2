@@ -21,13 +21,13 @@ namespace Manager
         public static string GetDepartmentTitle(int id)
         {
             if (id == 0) return "none";
-            Department _l = _departments.First(s => s.ID == id);
+            Department _l = _departments.FirstOrDefault(s => s.ID == id);
             string title = _l.Title;
             return title;
         }
         public static int GetDepartmentID(string title)
         {
-            int id = _departments.First(s => s.Title == title).ID;
+            int id = _departments.FirstOrDefault(s => s.Title == title).ID;
             return id;
         }
 
