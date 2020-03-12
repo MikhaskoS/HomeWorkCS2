@@ -21,7 +21,7 @@ namespace Manager.Modal
     {
         readonly bool _add;
         readonly Department _editebleDepartment;
-        public static event Action UpdateDepartment;
+        //public static event Action AddDepartment;
 
         public EditDepartment()
         {
@@ -72,11 +72,12 @@ namespace Manager.Modal
             string title = textTitle.Text;
 
             if (_add)
+            {
                 EmployeesManager.AddDepartment(title);
+                //AddDepartment?.Invoke();
+            }
             else
                 _editebleDepartment.Title = textTitle.Text;
-
-            UpdateDepartment?.Invoke();
 
             this.Close();
         }

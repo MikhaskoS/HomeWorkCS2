@@ -69,6 +69,7 @@
     <Compile Include="Modal\EditEmployee.xaml.cs">
       <DependentUpon>EditEmployee.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MyClasses\Converter.cs" />
     <Compile Include="MyClasses\Department.cs" />
     <Compile Include="MyClasses\Employee.cs" />
     <Compile Include="MainWindow.xaml.cs">
@@ -86,6 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MyClasses\EmployeesManager.cs" />
+    <Compile Include="MyClasses\NotifyingObj.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

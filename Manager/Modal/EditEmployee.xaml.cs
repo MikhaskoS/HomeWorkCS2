@@ -21,7 +21,8 @@ namespace Manager.Modal
     {
         readonly bool _add;
         readonly Employee _editableEmployee;
-        public static event Action UpdateEmployees;
+
+        //public static event Action AddEmployees;
 
         public EditEmployee()
         {
@@ -79,7 +80,10 @@ namespace Manager.Modal
             int department = (int)cmbxDepartment.SelectedValue;
 
             if (_add)
+            {
                 EmployeesManager.AddEmployees(firstName, lastName, salary, department);
+                //AddEmployees?.Invoke();
+            }
             else
             {
                 if (firstName != "") _editableEmployee.FirstName = firstName;
@@ -87,9 +91,6 @@ namespace Manager.Modal
                 _editableEmployee.Salary = salary;
                 _editableEmployee.Id = department;
             }
-
-            UpdateEmployees?.Invoke();
-
             this.Close();
         }
     }

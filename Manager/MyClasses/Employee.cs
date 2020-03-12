@@ -1,24 +1,33 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace Manager
 {
-    public class Employee
+    public class Employee : NotifyingObj
     {
-        /// <summary> ID отдела, в котором работает сотрудник </summary>
-        public int Id { get; set; }
-        /// <summary> Имя сотрудника </summary>
-        public string FirstName { get; set; }
-        /// <summary> Фамилия сотрудника </summary>
-        public string LastName { get; set; }
-        /// <summary> Зарплата </summary>
-        public decimal Salary { get; set; }
+        private int _id;
+        private string _firstName;
+        private string _lastName;
+        private decimal _salary;
 
-        public static List<Employee> GetEmployeesArrayList()
+        /// <summary> ID отдела, в котором работает сотрудник </summary>
+        public int Id { get => _id; set { _id = value; OnPropertyChanged(); } }
+        /// <summary> Имя сотрудника </summary>
+        public string FirstName { get => _firstName; set { _firstName = value; OnPropertyChanged(); } }
+        /// <summary> Фамилия сотрудника </summary>
+        public string LastName { get => _lastName; set { _lastName = value; OnPropertyChanged(); } }
+        /// <summary> Зарплата </summary>
+        public decimal Salary { get => _salary; set { _salary = value; OnPropertyChanged(); } }
+
+
+        public static ObservableCollection<Employee> GetEmployeesArrayList()
         {
-            List<Employee> al = new List<Employee>
+            ObservableCollection<Employee> al = new ObservableCollection<Employee>
                 {
                     new Employee { Id = 1, FirstName = "Вася", LastName = "Хилый", Salary= 100 },
                     new Employee { Id = 2, FirstName = "Вальдемар", LastName = "Пупкин" , Salary= 150 },

@@ -9,12 +9,14 @@
         Title="Manager" Height="480" Width="640" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <local:EmployeesManager x:Key="EmplManager"></local:EmployeesManager>
+        <local:Converter x:Key="MyConverter"></local:Converter>
+        <local:Employee x:Key="Empl"></local:Employee>
     </Window.Resources>
     
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
-            <RowDefinition Height="25"/>
+            <RowDefinition Height="35"/>
         </Grid.RowDefinitions>
         <TabControl Name="tabWindow" Grid.Row="0"  Margin="1,1,1,1" >
             <TabItem Header="Отделы">
@@ -42,12 +44,13 @@
             </TabItem>
             <TabItem Header="Сотрудники">
                 <Grid Background="#FFE5E5E5">
-                    <ListView Name="employeesList"  Margin="5" SelectionChanged="EmployeesList_SelectionChanged"  >
-                        <ListView.ItemsSource>
-                            <Binding Path="Employees" Source="{StaticResource EmplManager}"/>
-                        </ListView.ItemsSource>
+                    <ListView Name="employeesList"  Margin="5"  SelectionChanged="EmployeesList_SelectionChanged"  >
+                        <ListView.ItemTemplate>
+                            <DataTemplate >
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
                         <ListView.View>
-                            <GridView >
+                            <GridView>
                                 <GridView.Columns>
                                     <GridViewColumn Header="Имя" Width="100" 
                                                     DisplayMemberBinding="{Binding FirstName}">
@@ -58,23 +61,24 @@
                                     <GridViewColumn Header="Зарплата" Width="100"
                                                     DisplayMemberBinding="{Binding Salary}">
                                     </GridViewColumn>
-                                    <GridViewColumn Header="Отдел ID" Width="100">
+                                    <GridViewColumn Header="Отдел ID" Width="250">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <ComboBox ItemsSource="{Binding DepartmentID, 
-                                                    Source={StaticResource EmplManager}}" IsEditable="True" IsReadOnly="True" 
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="50"></ColumnDefinition>
+                                                        <ColumnDefinition Width="200"></ColumnDefinition>
+                                                    </Grid.ColumnDefinitions>
+                                                    <ComboBox Grid.Column="0" Name="cmbID"   ItemsSource="{Binding DepartmentID, 
+                                                    Source={StaticResource EmplManager}}" IsReadOnly="True" 
                                                           SelectedItem="{Binding Id}">
-                                                </ComboBox>
+                                                    </ComboBox>
+                                                    <Label Grid.Column="1" Content="{Binding ElementName=cmbID, Path=SelectedValue,
+                                                        Converter={StaticResource MyConverter}}" FontStyle="Italic"></Label>
+                                                </Grid>
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
-                                    <!--<GridViewColumn Header="Наименование отдела" Width="Auto">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock ></TextBlock>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>-->
                                 </GridView.Columns>
 
                             </GridView>
@@ -83,7 +87,7 @@
                 </Grid>
             </TabItem>
         </TabControl>
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" Margin="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>

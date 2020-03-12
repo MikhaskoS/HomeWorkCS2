@@ -1,22 +1,26 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Manager
 {
-    public class Department
+    public class Department : NotifyingObj
     {
-        /// <summary> ID отдела </summary>
-        public int ID { get; set; }
-        /// <summary> Название отдела </summary>
-        public string Title { get; set; }
+        private int _iD;
+        private string _title;
 
-        public static List<Department> GetDepartamentArrayList()
+        /// <summary> ID отдела </summary>
+        public int ID { get => _iD; set { _iD = value; OnPropertyChanged(); } }
+        /// <summary> Название отдела </summary>
+        public string Title { get => _title; set { _title = value; OnPropertyChanged(); } }
+
+        public static ObservableCollection<Department> GetDepartamentArrayList()
         {
-            List<Department> al =  new List<Department>
+            ObservableCollection<Department> al = new ObservableCollection<Department>
                 {
                     new Department { ID = 1, Title ="Отдел хорошего настроения"},
                     new Department { ID = 2, Title ="Пофигисты"},
