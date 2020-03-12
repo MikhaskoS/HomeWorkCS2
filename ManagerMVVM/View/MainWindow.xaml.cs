@@ -28,7 +28,8 @@ namespace Employees
     {
         public MainWindow()
         {
-            MainWindowVM.Setup();
+            DataMethods.SetupData();
+
             InitializeComponent();
         }
     }

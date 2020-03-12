@@ -75,13 +75,16 @@ namespace Employees
         private void ButtonOk_Click(object sender, RoutedEventArgs e)
         {
             string title = textTitle.Text;
+            string desc = txtDescription.Text;
 
             if (_add)
             {
-                EmployeesManager.AddDepartment(title);
+                EmployeesManager.AddDepartment(title, desc);
             }
             else
+            {
                 _editebleDepartment.Name = textTitle.Text;
+            }
 
             this.Close();
         }

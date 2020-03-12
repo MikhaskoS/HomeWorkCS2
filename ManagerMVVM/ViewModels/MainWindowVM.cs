@@ -26,12 +26,6 @@ namespace Employees.ViewModels
             set => _selectedEmployee = (Employee)value;
         }
 
-        public static void Setup()
-        {
-            SetupDB();
-            TakeObjectsFromDB();
-        }
-
         private Department _selectedDepartment;
         private Employee _selectedEmployee;
 
@@ -114,43 +108,6 @@ namespace Employees.ViewModels
             }
         }
 
-        private static void SetupDB()
-        {
-            using (var db = new DatabaseContext())
-            {
-                if (!db.Departaments.Any()) // если нет ни одного департамента
-                {
-                    ObservableCollection<Department> departments = Department.GetDepartamentArrayList();
-                    foreach (var dep in departments)
-                        db.Departaments.Add(dep);
-                    db.SaveChanges();
-                }
 
-                if (!db.Employees.Any())  // если нет ни одного сотрудника
-                {
-                    ObservableCollection<Employee> employees = Employee.GetEmployeesArrayList();
-                    var rnd = new Random();
-                    foreach (var emlp in employees)
-                    {
-                        var dep_id = rnd.Next(1, 6);
-                        emlp.Departament = db.Departaments.FirstOrDefault(d => d.Id == dep_id);
-                        db.Employees.Add(emlp);
-                    }
-                    db.SaveChanges();
-                }
-            }
-        }
-
-        private static void TakeObjectsFromDB()
-        {
-            using (var db = new DatabaseContext())
-            {
-                var empl = db.Employees.ToList<Employee>();
-                var dep = db.Departaments.ToList<Department>();
-
-                EmployeesManager.Employees = new ObservableCollection<Employee>(empl);
-                EmployeesManager.Departments = new ObservableCollection<Department>(dep);
-            }
-        }
     }
 }

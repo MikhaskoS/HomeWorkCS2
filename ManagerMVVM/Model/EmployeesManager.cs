@@ -1,4 +1,5 @@
-﻿using Employees.Entities;
+﻿using Employees.Data;
+using Employees.Entities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -21,29 +22,41 @@ namespace Employees.Model
         #region Employees
         public static void AddEmployees(string firstName, string lastName, int salary, Department department)
         {
-            _employees.Add(new Employee
+            Employee employee = new Employee
             {
                 Departament = department,
                 FirstName = firstName,
                 LastName = lastName,
                 Salary = salary
-            });
+            };
+
+            DataMethods.AddEmployees(employee);
+            _employees.Add(employee);
         }
         public static void AddEmployees(Employee employee)
         {
             _employees.Add(employee);
         }
-        public static void DeleteEmployee(Employee employee) => _employees.Remove(employee);
+        public static void DeleteEmployee(Employee employee)
+        {
+            DataMethods.DeleteEmployee(employee);
+            _employees.Remove(employee);
+        }
         #endregion
 
         #region Department
         public static void AddDepartment(string name, string description = null)
         {
-            int maxID = _departments.Max(s => s.Id);
-            maxID++;
-            _departments.Add(new Department { Name = name, Description = description });
+            Department department = new Department { Name = name, Description = description };
+            
+            DataMethods.AddDepartment(department);
+            _departments.Add(department);
         }
-        public static void DeleteDepartment(Department department) => _departments.Remove(department);
+        public static void DeleteDepartment(Department department)
+        {
+            DataMethods.DeleteDepartment(department);
+            _departments.Remove(department);
+        }
         #endregion
     }
 }

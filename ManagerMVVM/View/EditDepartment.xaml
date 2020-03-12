@@ -4,15 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"    mc:Ignorable="d"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:Employees.ViewModels"
-        Title="Добавить/Редактировать отдел" Height="150" Width="396">
+        Title="Добавить/Редактировать отдел" Height="168" Width="396">
     <Window.DataContext>
         <vm:EditDepartmentVM></vm:EditDepartmentVM>
     </Window.DataContext>
     <Grid Margin="2">
         <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
             <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
@@ -22,7 +22,14 @@
             <Label Grid.Column="0" Name="lblTitle" VerticalAlignment="Center" HorizontalAlignment="Left">Имя:</Label>
             <TextBox  Grid.Column="1" Name="textTitle" VerticalAlignment="Center" ></TextBox>
         </Grid>
-
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Content="Описание:" VerticalContentAlignment="Top"></Label>
+            <TextBox Name="txtDescription" Grid.Row="1"  TextWrapping="Wrap" Text="" FontStyle="Italic" />
+        </Grid>
         <Grid Grid.Row="2" Margin="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
@@ -31,6 +38,6 @@
             <Button Grid.Column="1"  Name="buttonCansel" HorizontalAlignment="Right" Click="ButtonCansel_Click">Отмена</Button>
             <Button Grid.Column="0"  HorizontalAlignment="Left"  Name="buttonOk" Click="ButtonOk_Click">Добавить/Ред</Button>
         </Grid>
-        <TextBox Grid.Row="1"  TextWrapping="Wrap" Text="Описание..." FontStyle="Italic" />
+        
     </Grid>
 </Window>

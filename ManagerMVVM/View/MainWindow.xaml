@@ -26,8 +26,8 @@
                         <ListView.View>
                             <GridView >
                                 <GridView.Columns>
-                                    <GridViewColumn Header="ID" Width="100" DisplayMemberBinding="{Binding Id}" >
-                                    </GridViewColumn>
+                                    <!--<GridViewColumn Header="ID" Width="100" DisplayMemberBinding="{Binding Id}" >
+                                    </GridViewColumn>-->
                                     <GridViewColumn Header="Наименование отдела" Width="Auto">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>

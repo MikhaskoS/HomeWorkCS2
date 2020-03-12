@@ -32,6 +32,7 @@ namespace Employees
             InitializeComponent();
             _add = true;
             cmbxDepartment.ItemsSource = EmployeesManager.Departments;
+            cmbxDepartment.DisplayMemberPath = "Name";
 
             buttonOk.Content = "Добавить";
             this.Title = "Добавить сотрудника";
@@ -80,13 +81,13 @@ namespace Employees
             string firstName = textFirstName.Text;
             string lastName = textLastName.Text;
             int.TryParse(textSalary.Text, out int salary);
-            int ID = (int)cmbxDepartment.SelectedValue;
-            Department _d = EmployeesManager.Departments.FirstOrDefault(d => d.Id == ID);
+            Department dep = (Department)cmbxDepartment.SelectedValue;
+
+            Department _d = EmployeesManager.Departments.FirstOrDefault(d => d.Id == dep.Id);
 
             if (_add)
             {
                 EmployeesManager.AddEmployees(firstName, lastName, salary, _d);
-                //AddEmployees?.Invoke();
             }
             else
             {

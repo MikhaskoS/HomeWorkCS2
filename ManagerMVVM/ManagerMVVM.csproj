@@ -82,6 +82,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Data\DatabaseContext.cs" />
+    <Compile Include="Data\DataMethods.cs" />
     <Compile Include="Entities\Departament.cs" />
     <Compile Include="Entities\Employee.cs" />
     <Compile Include="Model\EmployeesManager.cs" />
