@@ -20,7 +20,8 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" Name="lblTitle" VerticalAlignment="Center" HorizontalAlignment="Left">Имя:</Label>
-            <TextBox  Grid.Column="1" Name="textTitle" VerticalAlignment="Center" ></TextBox>
+            <TextBox  Grid.Column="1" Name="textTitle" VerticalAlignment="Center" 
+                      Text="{Binding Title }" ></TextBox>
         </Grid>
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
@@ -28,15 +29,17 @@
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Label Grid.Row="0" Content="Описание:" VerticalContentAlignment="Top"></Label>
-            <TextBox Name="txtDescription" Grid.Row="1"  TextWrapping="Wrap" Text="" FontStyle="Italic" />
+            <TextBox Name="txtDescription" Grid.Row="1"   TextWrapping="Wrap" Text="{Binding Description}" FontStyle="Italic" />
         </Grid>
         <Grid Grid.Row="2" Margin="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="1"  Name="buttonCansel" HorizontalAlignment="Right" Click="ButtonCansel_Click">Отмена</Button>
-            <Button Grid.Column="0"  HorizontalAlignment="Left"  Name="buttonOk" Click="ButtonOk_Click">Добавить/Ред</Button>
+            <Button Grid.Column="1"  Name="buttonCansel" HorizontalAlignment="Right" 
+                    Command="{Binding CloseCommand}">Отмена</Button>
+            <Button Grid.Column="0"  HorizontalAlignment="Left"  
+                    Name="buttonOk" Command="{Binding AddCommand}" >Добавить/Ред</Button>
         </Grid>
         
     </Grid>

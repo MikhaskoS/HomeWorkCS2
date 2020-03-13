@@ -43,11 +43,13 @@ namespace Employees.ViewModels
                      {
                          case 0:
                              if (_selectedDepartment == null) return;
+                             bool del = false;
                              if (MessageBox.Show("Вы уверены?", "Удаление отдела!",
                                  MessageBoxButton.YesNo, MessageBoxImage.Exclamation) == MessageBoxResult.Yes)
                              {
-                                 EmployeesManager.DeleteDepartment(_selectedDepartment);
+                                 del = EmployeesManager.DeleteDepartment(_selectedDepartment);
                              }
+                             if (!del) MessageBox.Show("Сначала переведите сотрудников в другой отдел!", "Внимание!");
                              break;
                          case 1:
                              if (_selectedEmployee == null) return;
@@ -75,7 +77,7 @@ namespace Employees.ViewModels
                          switch (i)
                          {
                              case 0:
-                                 EditDepartment.ShowWindow();
+                                 ShowDepartmentWindow();
                                  break;
                              case 1:
                                  EditEmployee.ShowWindow();
@@ -98,16 +100,55 @@ namespace Employees.ViewModels
                          switch (i)
                          {
                              case 0:
-                                 //EditDepartment.ShowWindow();
+                                 ShowDepartmentWindow(_selectedDepartment);
                                  break;
                              case 1:
-                                 //EditEmployee.ShowWindow();
+                                 //EditEmployeeVM.ShowWindow(_selectedEmployee);
                                  break;
                          }
                      }));
             }
         }
 
+        #region DepartmentWindow
+        public void ShowDepartmentWindow()
+        {
+            EditDepartment _editDepartmentWindow = new EditDepartment()
+            {
+                WindowStartupLocation = WindowStartupLocation.CenterScreen
+            };
 
+            _editDepartmentWindow.buttonOk.Content = "Добавить";
+            _editDepartmentWindow.Title = "Добавить отдел";
+
+            EditDepartmentVM dc = (EditDepartmentVM)_editDepartmentWindow.DataContext;
+            dc.AddMode = true;
+
+            _editDepartmentWindow.ShowDialog();
+        }
+        public void ShowDepartmentWindow(Department department)
+        {
+
+            EditDepartment _editDepartmentWindow = new EditDepartment()
+            {
+                WindowStartupLocation = WindowStartupLocation.CenterScreen,
+                
+            };
+            _editDepartmentWindow.buttonOk.Content = "Измениить";
+            _editDepartmentWindow.Title = "Редактировать отдел";
+
+            EditDepartmentVM dc = (EditDepartmentVM)_editDepartmentWindow.DataContext;
+            
+            dc.AddMode = false;
+            dc.EditableDepartment = department;
+            dc.Title = department.Name;
+            dc.Description = department.Description;
+
+            _editDepartmentWindow.ShowDialog();
+        }
+        #endregion
+
+        #region EmployeeWindow
+        #endregion
     }
 }

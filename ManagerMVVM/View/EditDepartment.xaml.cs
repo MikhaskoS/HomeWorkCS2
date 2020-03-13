@@ -24,69 +24,13 @@ namespace Employees
     /// </summary>
     public partial class EditDepartment : Window
     {
-        readonly bool _add;
-        readonly Department _editebleDepartment;
-        //public static event Action AddDepartment;
+        public static EditDepartment Instance;
 
         public EditDepartment()
         {
             InitializeComponent();
-            _add = true;
 
-            buttonOk.Content = "Добавить";
-            this.Title = "Добавить отдел";
-        }
-        public EditDepartment(Department department)
-        {
-            InitializeComponent();
-            _add = false;
-
-            buttonOk.Content = "Применить";
-            this.Title = "Редактировать отдел";
-            _editebleDepartment = department;
-
-            textTitle.Text = _editebleDepartment.Name;
-        }
-
-        public static void ShowWindow()
-        {
-            EditDepartment editEmployee = new EditDepartment()
-            {
-                WindowStartupLocation = WindowStartupLocation.CenterScreen
-            };
-            
-            editEmployee.ShowDialog();
-        }
-        public static void ShowWindow(Department department)
-        {
-            EditDepartment editEmployee = new EditDepartment(department)
-            {
-                WindowStartupLocation = WindowStartupLocation.CenterScreen
-            };
-
-            editEmployee.ShowDialog();
-        }
-
-        private void ButtonCansel_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
-        private void ButtonOk_Click(object sender, RoutedEventArgs e)
-        {
-            string title = textTitle.Text;
-            string desc = txtDescription.Text;
-
-            if (_add)
-            {
-                EmployeesManager.AddDepartment(title, desc);
-            }
-            else
-            {
-                _editebleDepartment.Name = textTitle.Text;
-            }
-
-            this.Close();
+            Instance = this;
         }
     }
 }

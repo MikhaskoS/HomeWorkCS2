@@ -52,10 +52,14 @@ namespace Employees.Model
             DataMethods.AddDepartment(department);
             _departments.Add(department);
         }
-        public static void DeleteDepartment(Department department)
+        public static bool DeleteDepartment(Department department)
         {
-            DataMethods.DeleteDepartment(department);
-            _departments.Remove(department);
+            if (DataMethods.DeleteDepartment(department))
+            {
+                _departments.Remove(department);
+                return true;
+            }
+            return false;
         }
         #endregion
     }

@@ -17,6 +17,7 @@ namespace Employees.Data
             TakeObjectsFromDB();
         }
 
+        #region Department
         public static void AddDepartment(Department department)
         {
             using (var db = new DatabaseContext())
@@ -25,19 +26,41 @@ namespace Employees.Data
                 db.SaveChanges();
             }
         }
-        public static void DeleteDepartment(Department department)
+        public static bool DeleteDepartment(Department department)
         {
             using (var db = new DatabaseContext())
             {
                 Department _d = db.Departaments.FirstOrDefault(d=> d.Id == department.Id);
                 if (_d != null)
                 {
-                    db.Departaments.Remove(_d);
-                    db.SaveChanges();
+                    // отдел не удалися, если есть сотрудники из этого отдела
+                    // два варианта - самим перевести сотрудников, либо отменить удаление
+                    Employee employee = EmployeesManager.Employees.FirstOrDefault(s => s.Departament.Id == _d.Id);
+                    if (employee == null)
+                    {
+                        db.Departaments.Remove(_d);
+                        db.SaveChanges();
+                        return true;
+                    }
                 }
             }
-            
+            return false;
         }
+        public static void EditDepartment(Department department)
+        {
+            using (var db = new DatabaseContext())
+            {
+                //Department _d = db.Departaments.FirstOrDefault(d => d.Id == department.Id);
+                //if (_d != null)
+                //{
+                //    db.Departaments.Remove(_d);
+                //    db.SaveChanges();
+                //}
+            }
+        }
+        #endregion
+
+        #region Employee
         public static void AddEmployees(Employee employee)
         {
             using (var db = new DatabaseContext())
@@ -60,6 +83,9 @@ namespace Employees.Data
                 }
             }
         }
+        public static void EditEmployee(Employee employee)
+        { }
+        #endregion
 
         private static void SetupDB()
         {
