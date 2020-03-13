@@ -24,6 +24,7 @@ namespace Employees.Entities
         public int Salary { get => _salary; set => Set(ref _salary, value); }
         public virtual Department Departament { get => _departament; set => Set(ref _departament, value); }
 
+
         public static ObservableCollection<Employee> GetEmployeesArrayList()
         {
             ObservableCollection<Employee> al = new ObservableCollection<Employee>
@@ -36,6 +37,14 @@ namespace Employees.Entities
                     new Employee { FirstName = "Никанор", LastName = "Задрищев" , Salary= 220 }
                 };
             return al;
+        }
+
+        public void Clone(Employee other)
+        {
+            this.FirstName = other.FirstName;
+            this.LastName = other.LastName;
+            this.Salary = other.Salary;
+            this.Departament = other.Departament;
         }
     }
 }

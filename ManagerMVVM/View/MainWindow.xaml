@@ -51,9 +51,9 @@
             <TabItem Header="Сотрудники">
                 <Grid Background="#FFE5E5E5">
                     <ListView Name="employeesList"  Margin="5" SelectedItem="{Binding SelectEmployee}"
-                              ItemsSource="{Binding Employees, Source={StaticResource EmplManager}}"   >
+                              ItemsSource="{Binding  Employees, Source={StaticResource EmplManager}}" >
                         <ListView.View>
-                            <GridView >
+                            <GridView>
                                 <GridView.Columns>
                                     <GridViewColumn Header="Имя" Width="100" DisplayMemberBinding="{Binding FirstName}">
                                     </GridViewColumn>
@@ -61,7 +61,7 @@
                                     </GridViewColumn>
                                     <GridViewColumn Header="Зарплата" Width="100" DisplayMemberBinding="{Binding Salary}">
                                     </GridViewColumn>
-                                    <GridViewColumn Header="Отдел ID" Width="250">
+                                    <GridViewColumn Header="Отдел ID" Width="270">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
                                                 <Grid>
@@ -70,7 +70,7 @@
                                                     </Grid.ColumnDefinitions>
                                                     <ComboBox Grid.Column="0" Name="cmbID"   DisplayMemberPath="Name" 
                                                               ItemsSource="{Binding Departments, Source={StaticResource EmplManager}}" 
-                                                              SelectedItem="{Binding Departament}">
+                                                              SelectedItem="{Binding Departament}" IsReadOnly="True">
                                                     </ComboBox>
                                                 </Grid>
                                             </DataTemplate>

@@ -4,7 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" mc:Ignorable="d"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:Employees.ViewModels"
-        Title="Добавить/Редактировать служащего" Height="197" Width="326.167">
+        xmlns:local="clr-namespace:Employees.Model" 
+        Title="Добавить/Редактировать служащего" Height="197" Width="326.167" Closed="Window_Closed">
+    <Window.Resources>
+        <local:EmployeesManager x:Key="EmplManager"></local:EmployeesManager>
+    </Window.Resources>
     <Window.DataContext>
         <vm:EditEmployeeVM></vm:EditEmployeeVM>
     </Window.DataContext>
@@ -22,7 +26,7 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" Name="lblFirstName" VerticalAlignment="Center" HorizontalAlignment="Left">Имя:</Label>
-            <TextBox  Grid.Column="1" Name="textFirstName" VerticalAlignment="Center" ></TextBox>
+            <TextBox  Grid.Column="1" Name="textFirstName" Text="{Binding FirstName}" VerticalAlignment="Center" ></TextBox>
         </Grid>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
@@ -30,7 +34,7 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" Name="lblLastName" VerticalAlignment="Center" HorizontalAlignment="Left">Фамилия:</Label>
-            <TextBox  Grid.Column="1" Name="textLastName" VerticalAlignment="Center" ></TextBox>
+            <TextBox  Grid.Column="1" Name="textLastName" Text="{Binding LastName}" VerticalAlignment="Center" ></TextBox>
         </Grid>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
@@ -38,7 +42,7 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" Name="lblSalary" VerticalAlignment="Center" HorizontalAlignment="Left">Зарплата:</Label>
-            <TextBox  Grid.Column="1" Name="textSalary" VerticalAlignment="Center" ></TextBox>
+            <TextBox  Grid.Column="1" Name="textSalary" Text="{Binding Salary}" VerticalAlignment="Center" ></TextBox>
         </Grid>
         <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
@@ -46,15 +50,17 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" Name="lblDepartment" VerticalAlignment="Center" HorizontalAlignment="Left">Отдел:</Label>
-            <ComboBox Grid.Column="1" Name="cmbxDepartment"></ComboBox>
+            <ComboBox Grid.Column="1" Name="cmbxDepartment" DisplayMemberPath="Name"
+                      ItemsSource="{Binding Departments, Source={StaticResource EmplManager}}"
+                      SelectedValue="{Binding Department}"></ComboBox>
         </Grid>
         <Grid Grid.Row="4" Margin="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="1"  Name="buttonCansel" HorizontalAlignment="Right" Click="ButtonCansel_Click">Отмена</Button>
-            <Button Grid.Column="0"  HorizontalAlignment="Left"  Name="buttonOk" Click="ButtonOk_Click">Добавить/Ред</Button>
+            <Button Grid.Column="1"  Name="buttonCansel" HorizontalAlignment="Right" Command="{Binding CloseCommand}" >Отмена</Button>
+            <Button Grid.Column="0"  HorizontalAlignment="Left"  Name="buttonOk" Command="{Binding AddCommand}" >Добавить/Ред</Button>
         </Grid>
     </Grid>
 </Window>

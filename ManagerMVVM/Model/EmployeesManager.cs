@@ -14,6 +14,7 @@ namespace Employees.Model
         private static ObservableCollection<Employee> _employees;
         private static ObservableCollection<Department> _departments;
 
+
         public static ObservableCollection<Employee> Employees { get => _employees; set => _employees = value; }
         public static ObservableCollection<Department> Departments { get => _departments; set => _departments = value; }
 

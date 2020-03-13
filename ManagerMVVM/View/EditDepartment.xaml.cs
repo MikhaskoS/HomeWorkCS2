@@ -32,5 +32,10 @@ namespace Employees
 
             Instance = this;
         }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            Instance = null;
+        }
     }
 }

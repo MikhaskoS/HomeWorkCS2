@@ -50,12 +50,13 @@ namespace Employees.Data
         {
             using (var db = new DatabaseContext())
             {
-                //Department _d = db.Departaments.FirstOrDefault(d => d.Id == department.Id);
-                //if (_d != null)
-                //{
-                //    db.Departaments.Remove(_d);
-                //    db.SaveChanges();
-                //}
+                Department _d = db.Departaments.FirstOrDefault(d => d.Id == department.Id);
+                if (_d != null)
+                {
+                    _d.Name = department.Name;
+                    _d.Description = department.Description;
+                    db.SaveChanges();
+                }
             }
         }
         #endregion
@@ -84,7 +85,21 @@ namespace Employees.Data
             }
         }
         public static void EditEmployee(Employee employee)
-        { }
+        {
+            using (var db = new DatabaseContext())
+            {
+                Employee _d = db.Employees.FirstOrDefault(d => d.Id == employee.Id);
+                if (_d != null)
+                {
+                    _d.FirstName = employee.FirstName;
+                    _d.LastName = employee.LastName;
+                    _d.Salary = employee.Salary;
+                    _d.Departament = db.Departaments.FirstOrDefault(d => d.Id == employee.Departament.Id);
+
+                    db.SaveChanges();
+                }
+            }
+        }
         #endregion
 
         private static void SetupDB()
@@ -113,7 +128,6 @@ namespace Employees.Data
                 }
             }
         }
-
         private static void TakeObjectsFromDB()
         {
             using (var db = new DatabaseContext())

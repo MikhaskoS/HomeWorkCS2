@@ -16,6 +16,17 @@ namespace Employees.ViewModels
 {
     class MainWindowVM : ViewModelBase
     {
+        private void Employee_ChangeDepartment(object sender, EventArgs e)
+        {
+            if (EditEmployee.Instance == null)
+            {
+                Employee employe = (Employee)sender;
+                DataMethods.EditEmployee(employe);
+
+                Console.WriteLine(sender.ToString());
+            }
+        }
+
         // Свойства, привязанные к SelectedItem
         public Department SelectDepartment
         {
@@ -80,7 +91,7 @@ namespace Employees.ViewModels
                                  ShowDepartmentWindow();
                                  break;
                              case 1:
-                                 EditEmployee.ShowWindow();
+                                 ShowEmployeeWindow();
                                  break;
                          }
                      }));
@@ -100,10 +111,12 @@ namespace Employees.ViewModels
                          switch (i)
                          {
                              case 0:
+                                 if(_selectedDepartment !=null)
                                  ShowDepartmentWindow(_selectedDepartment);
                                  break;
                              case 1:
-                                 //EditEmployeeVM.ShowWindow(_selectedEmployee);
+                                 if(_selectedEmployee != null)
+                                 ShowEmployeeWindow(_selectedEmployee);
                                  break;
                          }
                      }));
@@ -149,6 +162,42 @@ namespace Employees.ViewModels
         #endregion
 
         #region EmployeeWindow
+        public void ShowEmployeeWindow()
+        {
+            EditEmployee _editEmployeeWindow = new EditEmployee()
+            {
+                WindowStartupLocation = WindowStartupLocation.CenterScreen
+            };
+
+            _editEmployeeWindow.buttonOk.Content = "Добавить";
+            _editEmployeeWindow.Title = "Добавить сотрудника";
+
+            EditEmployeeVM dc = (EditEmployeeVM)_editEmployeeWindow.DataContext;
+            dc.AddMode = true;
+
+            _editEmployeeWindow.ShowDialog();
+        }
+        public void ShowEmployeeWindow(Employee employee )
+        {
+            EditEmployee _editEmployeeWindow = new EditEmployee()
+            {
+                WindowStartupLocation = WindowStartupLocation.CenterScreen
+            };
+
+            _editEmployeeWindow.buttonOk.Content = "Редактировать";
+            _editEmployeeWindow.Title = "Редактировать сотрудника";
+            _editEmployeeWindow.cmbxDepartment.SelectedValue = employee.Departament;
+
+            EditEmployeeVM dc = (EditEmployeeVM)_editEmployeeWindow.DataContext;
+            dc.EditableEmployee = employee;
+            dc.AddMode = false;
+            dc.FirstName = employee.FirstName;
+            dc.LastName = employee.LastName;
+            dc.Salary = employee.Salary.ToString();
+            dc.Department = employee.Departament;
+            
+            _editEmployeeWindow.ShowDialog();
+        }
         #endregion
     }
 }

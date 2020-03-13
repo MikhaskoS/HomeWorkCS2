@@ -24,79 +24,17 @@ namespace Employees
     /// </summary>
     public partial class EditEmployee : Window
     {
-        readonly bool _add;
-        readonly Employee _editableEmployee;
+        public static EditEmployee Instance;
 
         public EditEmployee()
         {
             InitializeComponent();
-            _add = true;
-            cmbxDepartment.ItemsSource = EmployeesManager.Departments;
-            cmbxDepartment.DisplayMemberPath = "Name";
-
-            buttonOk.Content = "Добавить";
-            this.Title = "Добавить сотрудника";
-            cmbxDepartment.SelectedIndex = 0;
-        }
-        public EditEmployee(Employee employee)
-        {
-            InitializeComponent();
-            _add = false;
-            _editableEmployee = employee;
-            cmbxDepartment.ItemsSource = EmployeesManager.Departments;
-
-            textFirstName.Text = _editableEmployee.FirstName;
-            textLastName.Text = _editableEmployee.LastName;
-            textSalary.Text = _editableEmployee.Salary.ToString();
-            cmbxDepartment.SelectedValue = _editableEmployee.Id;
-
-            buttonOk.Content = "Применить";
-            this.Title = "Редактировать сотрудника";
+            Instance = this;
         }
 
-        public static void ShowWindow()
+        private void Window_Closed(object sender, EventArgs e)
         {
-            EditEmployee editEmployee = new EditEmployee()
-            {
-                WindowStartupLocation = WindowStartupLocation.CenterScreen
-            };
-            editEmployee.ShowDialog();
-        }
-        public static void ShowWindow(Employee employee)
-        {
-            EditEmployee editEmployee = new EditEmployee(employee)
-            {
-                WindowStartupLocation = WindowStartupLocation.CenterScreen
-            };
-            editEmployee.ShowDialog();
-        }
-
-        private void ButtonCansel_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
-        private void ButtonOk_Click(object sender, RoutedEventArgs e)
-        {
-            string firstName = textFirstName.Text;
-            string lastName = textLastName.Text;
-            int.TryParse(textSalary.Text, out int salary);
-            Department dep = (Department)cmbxDepartment.SelectedValue;
-
-            Department _d = EmployeesManager.Departments.FirstOrDefault(d => d.Id == dep.Id);
-
-            if (_add)
-            {
-                EmployeesManager.AddEmployees(firstName, lastName, salary, _d);
-            }
-            else
-            {
-                if (firstName != "") _editableEmployee.FirstName = firstName;
-                if (lastName != "") _editableEmployee.LastName = lastName;
-                _editableEmployee.Salary = salary;
-                _editableEmployee.Departament = _d;
-            }
-            this.Close();
+            Instance = null;
         }
     }
 }

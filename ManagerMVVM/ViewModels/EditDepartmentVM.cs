@@ -40,12 +40,14 @@ namespace Employees.ViewModels
                          }
                          else // Редактирование
                          {
-                             DataMethods.EditDepartment(EditableDepartment);
-
                              EditableDepartment.Name = title;
                              EditableDepartment.Description = desc;
+
+                             DataMethods.EditDepartment(EditableDepartment);
+
+                            
                          }
-                         EditDepartment.Instance.Close();
+                         EditDepartment.Instance?.Close();
                      }));
             }
         }
@@ -58,7 +60,7 @@ namespace Employees.ViewModels
                  (closeCommand = new RelayCommand(
                      obj =>
                      {
-                         EditDepartment.Instance.Close();
+                         EditDepartment.Instance?.Close();
                      }));
             }
         }
