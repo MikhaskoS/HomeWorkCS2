@@ -100,6 +100,20 @@ namespace Employees.Data
                 }
             }
         }
+        // обновление измененных данных ComboBox (???)
+        public static void UpdateEmploye(Employee employee)
+        {
+            using (var db = new DatabaseContext())
+            {
+                Employee _d = db.Employees.FirstOrDefault(d => d.Id == employee.Id);
+                if (_d != null)
+                {
+                    _d.Departament = db.Departaments.FirstOrDefault(d => d.Id == employee.Departament.Id);
+                }
+
+                db.SaveChanges();
+            }
+        }
         #endregion
 
         private static void SetupDB()

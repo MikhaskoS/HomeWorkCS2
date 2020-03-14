@@ -44,8 +44,6 @@ namespace Employees.ViewModels
                              EditableDepartment.Description = desc;
 
                              DataMethods.EditDepartment(EditableDepartment);
-
-                            
                          }
                          EditDepartment.Instance?.Close();
                      }));

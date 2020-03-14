@@ -38,13 +38,5 @@ namespace Employees.Entities
                 };
             return al;
         }
-
-        public void Clone(Employee other)
-        {
-            this.FirstName = other.FirstName;
-            this.LastName = other.LastName;
-            this.Salary = other.Salary;
-            this.Departament = other.Departament;
-        }
     }
 }
