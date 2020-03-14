@@ -27,11 +27,7 @@ namespace Employees.ViewModels
         public Department Department { get => _department; set => _department = value; }
 
         private RelayCommand addCommand;
-        public RelayCommand AddCommand
-        {
-            get
-            {
-                return addCommand ??
+        public RelayCommand AddCommand => addCommand ??
                  (addCommand = new RelayCommand(
                      obj =>
                      {
@@ -44,15 +40,16 @@ namespace Employees.ViewModels
                          {
                              EditableEmployee.FirstName = FirstName;
                              EditableEmployee.LastName = LastName;
-                             EditableEmployee.Salary = Convert.ToInt32(Salary);
+
+                             EditableEmployee.Salary =
+                                   int.TryParse(Salary, out int salary) ? salary : 0;
+
                              EditableEmployee.Departament = Department;
 
                              DataMethods.EditEmployee(EditableEmployee);
                          }
                          EditEmployee.Instance?.Close();
                      }));
-            }
-        }
         private RelayCommand closeCommand;
         public RelayCommand CloseCommand
         {
