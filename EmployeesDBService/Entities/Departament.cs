@@ -10,7 +10,6 @@ namespace Employees.Entities
     {
         [DataMember]
         public int Id { get; set; }
-
         [Required]
         [DataMember]
         public string Name { get ; set; }

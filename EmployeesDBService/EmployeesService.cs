@@ -13,6 +13,7 @@ namespace EmployeesDBService
     {
         readonly List<Department> depList;
         readonly List<Employee> emplList;
+
         public EmployeesService()
         {
             DataMethods.SetupDB();
@@ -33,15 +34,12 @@ namespace EmployeesDBService
                         Id = _e.Id,
                         FirstName = _e.FirstName,
                         LastName = _e.LastName,
-                        Salary = _e.Salary
-                    });
+                        Salary = _e.Salary,
+                    }); 
                 }
             }
 
-          
         }
-
-        public List<Department> Departmens => throw new NotImplementedException();
 
         public List<Department> GetDepartmens()
         {

@@ -30,7 +30,6 @@ namespace Employees.Entities
         [DataMember]
         public virtual Department Departament { get => _departament; set => _departament = value; }
 
-
         public static ObservableCollection<Employee> GetEmployeesArrayList()
         {
             ObservableCollection<Employee> al = new ObservableCollection<Employee>
