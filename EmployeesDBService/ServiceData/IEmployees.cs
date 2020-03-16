@@ -1,4 +1,5 @@
 ﻿using Employees.Entities;
+using EmployeesDBService.ServiceData;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +13,9 @@ namespace EmployeesDBService
     public interface IEmployees
     {
         [OperationContract]
-        List<Department> GetDepartmens();
+        List<SDepartment> GetDepartmens();
 
         [OperationContract]
-        List<Employee> GetEmployees();
+        List<SEmployee> GetEmployees();
     }
 }

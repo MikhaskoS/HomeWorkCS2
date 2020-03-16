@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
 
 using EmployeesDBService;
-using Employees.Entities;
+using EmployeesDBService.ServiceData;
 
 namespace FileService.ManualClient
 {
@@ -16,12 +11,12 @@ namespace FileService.ManualClient
     {
         public TestClient(Binding binding, EndpointAddress endpoint) : base(binding, endpoint) { }
 
-        public List<Department> GetDepartmens()
+        public List<SDepartment> GetDepartmens()
         {
             return Channel.GetDepartmens();
         }
 
-        public List<Employee> GetEmployees()
+        public List<SEmployee> GetEmployees()
         {
            return Channel.GetEmployees();
         }

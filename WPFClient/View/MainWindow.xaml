@@ -5,11 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"   mc:Ignorable="d"
         xmlns:local="clr-namespace:WPFClient"
         xmlns:em="clr-namespace:Employees.Model"  
+         xmlns:mn="clr-namespace:Manager"  
         xmlns:vm="clr-namespace:Employees.ViewModels"
      
         Title="MainWindow" Height="450" Width="800">
     <Window.Resources>
         <em:EmployeesManager x:Key="EmplManager"></em:EmployeesManager>
+        <mn:Converter x:Key="MyConverter"></mn:Converter>
     </Window.Resources>
     <Window.DataContext>
         <vm:MainWindowVM></vm:MainWindowVM>
@@ -62,17 +64,17 @@
                                     </GridViewColumn>
                                     <GridViewColumn Header="Зарплата" Width="100" DisplayMemberBinding="{Binding Salary}">
                                     </GridViewColumn>
-                                    <GridViewColumn Header="Отдел ID" Width="270">
+                                    <GridViewColumn Header="Отдел ID" Width="250">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
                                                 <Grid>
                                                     <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="50"></ColumnDefinition>
                                                         <ColumnDefinition Width="250"></ColumnDefinition>
                                                     </Grid.ColumnDefinitions>
-                                                    <ComboBox Grid.Column="0" Name="cmbID"   DisplayMemberPath="Name" 
-                                                              ItemsSource="{Binding Departments, Source={StaticResource EmplManager}}" 
-                                                              SelectedItem="{Binding Departament}" IsReadOnly="True">
-                                                    </ComboBox>
+                                                    <Label Grid.Column="0" Name="lblID" Content="{Binding IDDepartment}"></Label>
+                                                    <Label Grid.Column="1" Content="{Binding ElementName=lblID, Path=Content,
+                                                        Converter={StaticResource MyConverter}}" FontStyle="Italic"></Label>
                                                 </Grid>
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>

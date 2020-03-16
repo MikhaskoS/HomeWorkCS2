@@ -6,47 +6,46 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Employees.Data;
+using EmployeesDBService.ServiceData;
 
 namespace EmployeesDBService
 {
     public class EmployeesService : IEmployees
     {
-        readonly List<Department> depList;
-        readonly List<Employee> emplList;
+        readonly List<SDepartment> depList;
+        readonly List<SEmployee> emplList;
 
         public EmployeesService()
         {
             DataMethods.SetupDB();
             using (var db = new DatabaseContext())
             {
-                depList = new List<Department>();
+                depList = new List<SDepartment>();
 
                 foreach (Department _d in db.Departaments)
                 {
-                    depList.Add(new Department { Id = _d.Id, Name = _d.Name, Description = _d.Description});
+                    depList.Add(new SDepartment { Id = _d.Id, Name = _d.Name, Description = _d.Description});
                 }
-                emplList = new List<Employee>();
+                emplList = new List<SEmployee>();
                 foreach (Employee _e in db.Employees)
                 {
-                    Department department = depList.FirstOrDefault(s => s.Id == _e.Departament.Id);
-                    emplList.Add(new Employee
+                    emplList.Add(new SEmployee
                     {
-                        Id = _e.Id,
                         FirstName = _e.FirstName,
                         LastName = _e.LastName,
                         Salary = _e.Salary,
-                    }); 
+                        IDDepartment = _e.Departament.Id
+                    }); ; 
                 }
             }
-
         }
 
-        public List<Department> GetDepartmens()
+        public List<SDepartment> GetDepartmens()
         {
             return depList;
         }
 
-        public List<Employee> GetEmployees()
+        public List<SEmployee> GetEmployees()
         {
             return emplList;
 

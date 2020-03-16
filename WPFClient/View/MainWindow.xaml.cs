@@ -1,5 +1,6 @@
 ﻿using Employees.Entities;
 using Employees.Model;
+using EmployeesDBService.ServiceData;
 using FileService.ManualClient;
 using System;
 using System.Collections.Generic;
@@ -24,11 +25,11 @@ namespace WPFClient
         public void GetData()
         {
             var client = new TestClient(new BasicHttpBinding(), new EndpointAddress("http://localhost:8080/EmployeesService"));
-            List<Department> _dep = client.GetDepartmens();
-            List<Employee> _emp = client.GetEmployees();
+            List<SDepartment> _dep = client.GetDepartmens();
+            List<SEmployee> _emp = client.GetEmployees();
 
-            EmployeesManager.Departments = new ObservableCollection<Department>(_dep);
-            EmployeesManager.Employees = new ObservableCollection<Employee>(_emp);
+            EmployeesManager.Departments = new ObservableCollection<SDepartment>(_dep);
+            EmployeesManager.Employees = new ObservableCollection<SEmployee>(_emp);
         }
     }
 }

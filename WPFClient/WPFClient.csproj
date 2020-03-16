@@ -57,6 +57,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\Converter.cs" />
     <Compile Include="Model\EmployeesManager.cs" />
     <Compile Include="Model\TestClient.cs" />
     <Compile Include="ViewModels\MainWindowVM.cs" />

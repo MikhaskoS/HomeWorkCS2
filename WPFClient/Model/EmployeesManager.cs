@@ -1,5 +1,6 @@
 ﻿using Employees.Data;
 using Employees.Entities;
+using EmployeesDBService.ServiceData;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,13 +12,25 @@ namespace Employees.Model
 {
     public class EmployeesManager
     {
-        private static ObservableCollection<Employee> _employees;
-        private static ObservableCollection<Department> _departments;
+        private static ObservableCollection<SEmployee> _employees;
+        private static ObservableCollection<SDepartment> _departments;
 
 
-        public static ObservableCollection<Employee> Employees { get => _employees; set => _employees = value; }
-        public static ObservableCollection<Department> Departments { get => _departments; set => _departments = value; }
+        public static ObservableCollection<SEmployee> Employees { get => _employees; set => _employees = value; }
+        public static ObservableCollection<SDepartment> Departments { get => _departments; set => _departments = value; }
 
-        public static List<string> DepartmentName { get => _departments.Select(s => s.Name).ToList<string>(); }
+
+        public static string GetDepartmentTitle(int id)
+        {
+            if (id == 0) return "none";
+            SDepartment _l = _departments.FirstOrDefault(s => s.Id == id);
+            string title = _l.Name;
+            return title;
+        }
+        public static int GetDepartmentID(string name)
+        {
+            int id = _departments.FirstOrDefault(s => s.Name == name).Id;
+            return id;
+        }
     }
 }

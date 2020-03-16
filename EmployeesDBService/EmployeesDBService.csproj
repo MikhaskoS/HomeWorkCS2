@@ -58,8 +58,10 @@
     <Compile Include="EmployeesService.cs" />
     <Compile Include="Entities\Departament.cs" />
     <Compile Include="Entities\Employee.cs" />
-    <Compile Include="IEmployees.cs" />
+    <Compile Include="ServiceData\IEmployees.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceData\SDepartment.cs" />
+    <Compile Include="ServiceData\SEmployee.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
