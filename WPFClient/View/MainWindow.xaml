@@ -7,8 +7,7 @@
         xmlns:em="clr-namespace:Employees.Model"  
          xmlns:mn="clr-namespace:Manager"  
         xmlns:vm="clr-namespace:Employees.ViewModels"
-     
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <em:EmployeesManager x:Key="EmplManager"></em:EmployeesManager>
         <mn:Converter x:Key="MyConverter"></mn:Converter>
