@@ -2,11 +2,13 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Employees.Entities
 {
+    [DataContract]
     public class Employee
     {
         private string _firstName;
@@ -14,13 +16,18 @@ namespace Employees.Entities
         private int _salary;
         private Department _departament;
 
+        [DataMember]
         public int Id { get; set; }
 
         // Обязательный параметр
         [Required]
+        [DataMember]
         public string FirstName { get => _firstName; set => _firstName = value; }
+        [DataMember]
         public string LastName { get => _lastName; set => _lastName = value; }
+        [DataMember]
         public int Salary { get => _salary; set => _salary = value; }
+        [DataMember]
         public virtual Department Departament { get => _departament; set => _departament = value; }
 
 

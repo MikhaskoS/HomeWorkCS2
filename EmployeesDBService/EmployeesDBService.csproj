@@ -43,6 +43,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -53,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\DatabaseContext.cs" />
+    <Compile Include="Data\DataMethods.cs" />
     <Compile Include="EmployeesService.cs" />
     <Compile Include="Entities\Departament.cs" />
     <Compile Include="Entities\Employee.cs" />

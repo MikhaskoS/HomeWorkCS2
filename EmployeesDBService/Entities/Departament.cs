@@ -1,21 +1,22 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
-
+using System.Runtime.Serialization;
 
 namespace Employees.Entities
 {
+    [DataContract]
     public class Department 
     {
-        private string _name;
-        private string _description;
-
+        [DataMember]
         public int Id { get; set; }
 
         [Required]
-        public string Name { get => _name; set => _name = value; }
-        public string Description { get => _description; set => _description = value; }
-
+        [DataMember]
+        public string Name { get ; set; }
+        [DataMember]
+        public string Description { get; set; }
+        [DataMember]
         public virtual ICollection<Employee> Employees { get; set; }
 
         public static ObservableCollection<Department> GetDepartamentArrayList()
